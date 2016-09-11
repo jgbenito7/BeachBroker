@@ -1,3 +1,194 @@
+a:hover,a:visited,a:active{
+  text-decoration: none !important;
+}
+
 .cover-image {
   background-image: url("../img/bg/bg-1.jpeg") !important;
+}
+
+.dashboard-login-right{
+  background-image: url("../img/bg/bg-3.jpeg") !important;
+  background-size:cover;
+
+}
+
+.logo{
+  background-image:url("../img/sun.png");
+  background-size:cover;
+  background-color:rgba(0,0,0,0) !important;
+  width:26px;
+  height:26px;
+  float:left;
+  z-index:900;
+  margin-right:10px;
+}
+
+.header-logo-shape:before, .header-logo-shape:after{
+  background-color:rgba(0,0,0,0) !important;
+  height:0px;
+  width:0px;
+}
+
+hr.skinny{
+  border-bottom:1px solid rgba(0, 0, 0, 0.08);
+  margin:30px 0px;
+}
+
+.btn-block-cstm{
+  width:100%;
+  display:block;
+  padding:15px;
+  border-radius:3px;
+  text-align: center;
+  max-width:400px;
+  margin:auto;
+  margin-bottom: 20px;
+  position: relative;
+  text-decoration: none !important;
+}
+
+.transition-bg{
+  transition: background-color .2s linear;
+}
+
+.transition-border{
+  transition: border-color .2s linear;
+}
+
+.facebook-button{
+  background-color: #3B5998;
+  border-bottom: 1px solid #263a63;
+  color: white;
+}
+.facebook-button:hover{
+  background-color: #263a63;
+}
+
+.google-button{
+  background-color: white;
+  color: #484848;
+  border: 1px solid #c4c4c4;
+}
+
+.google-button:hover{
+  border-color: #484848;
+}
+
+
+.facebook-icon, .google-icon{
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  left: 20px;
+  top: 17px;
+  background-size: cover;
+}
+
+.facebook-icon{
+  background-image: url("../img/facebook.png");
+}
+
+.google-icon{
+  background-image: url("../img/google.png");
+}
+
+.dashboard-register{
+  position: fixed;
+  height:100%;
+  display: block;
+  left:-320px;
+  z-index:999;
+  background: rgba(255,255,255,1);
+}
+
+#register, #login{
+  cursor:pointer;
+}
+
+.dashboard-footer{
+  position: static;
+}
+
+.scrolly{
+  overflow-y:scroll;
+}
+
+.modal-content{
+  width:400px;
+  margin:auto;
+}
+
+.register-field{
+/* border: 1px solid #c4c4c4*/
+}
+
+.pad-adjust-left{
+  padding-left:5px;
+
+}
+
+.pad-adjust-right{
+  padding-right:5px;
+}
+
+.signup-or{
+  height:35px;
+  position: relative;
+  text-align: center;
+  background:none;
+}
+
+.hr-signup{
+  border-top: 1px solid #dce0e0;
+  margin:0px;
+  position:absolute;
+  top:15px;
+  width:100%;
+  z-index:9;
+}
+
+.or{
+  display:block;
+  background:#eaeaea;
+  color:#484848;
+  padding:5px;
+  z-index: 15;
+  height:30px;
+  width:25px;
+  margin:auto;
+  position: relative;
+}
+
+.btn-stretch{
+  width:100%;
+}
+
+.btn-transparent{
+  background-color: transparent;
+  color: #EC8C6F;
+  border: 1px solid #EC8C6F;
+}
+
+.btn-transparent:hover{
+  border: 1px solid #EC8C6F;
+}
+
+.modal-body{
+  background:#eaeaea;
+}
+
+::-webkit-input-placeholder {
+   color: #484848;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #484848;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #484848;
+}
+
+:-ms-input-placeholder {
+   color: #484848;
 }

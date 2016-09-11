@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	'use strict';
-	
+
 	/**
 	 * Checkbox & radio inputs
 	 */
@@ -14,17 +14,17 @@ $(document).ready(function() {
 			zoom: 12,
 			maxZoom: 20,
 			center: [40.761077, -73.88]
-		});			
+		});
 
 		map.scrollWheelZoom.disable();
 		var access_token = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw';
 
-		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + access_token, {		
-			scrollWheelZoom: false,		
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + access_token, {
+			scrollWheelZoom: false,
 			id: 'mapbox.streets',
 			attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
-		}).addTo(map);	
-		
+		}).addTo(map);
+
 		var icon = L.divIcon({
 			html: '<i class="fa fa-suitcase"></i>',
             iconSize: [36, 36],
@@ -34,7 +34,7 @@ $(document).ready(function() {
 
 		var marker = L.marker([40.761077, -73.88], {
 			icon: icon
-		}).addTo(map);	
+		}).addTo(map);
 	}
 
 	/**
@@ -42,18 +42,18 @@ $(document).ready(function() {
 	 */
 	if ($('#map-leaflet').length) {
 		var map = L.map('map-leaflet', {
-			zoom: 12,
+			zoom: 7,
 			maxZoom: 20,
-			center: [40.761077, -73.88]
-		});	
+			center: [34.0259, -118.7798]
+		});
 
 		var access_token = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw';
- 		var marker_cluster = L.markerClusterGroup();		
+ 		var marker_cluster = L.markerClusterGroup();
 
 		map.scrollWheelZoom.disable();
 
-		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + access_token, {		
-			scrollWheelZoom: false,		
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + access_token, {
+			scrollWheelZoom: false,
 			id: 'mapbox.streets',
 			attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
 		}).addTo(map);
@@ -70,7 +70,7 @@ $(document).ready(function() {
 
 					var marker = L.marker(value.center, {
 						icon: icon
-					}).addTo(map);		
+					}).addTo(map);
 
 	                marker.bindPopup(
 	                    '<div class="listing-window-image-wrapper">' +
@@ -118,20 +118,20 @@ $(document).ready(function() {
 	                    '<div class="map-marker">' + value.icon + '</div>';
 
 					markers.push({
-						latLng: value.center, 
-						data: value.id,			
-						options: {									
+						latLng: value.center,
+						data: value.id,
+						options: {
 							content: content,
 							offset: {
                 				x: -18,
                 				y: -42
-              				}							
+              				}
 						}
 					});
 				});
 
-				$('#map-google').gmap3({		
-					map: {									
+				$('#map-google').gmap3({
+					map: {
 						options:{
 							styles: [{"featureType":"landscape","elementType":"all","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"poi","elementType":"all","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]},{"featureType":"road.highway","elementType":"all","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.local","elementType":"all","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]}],
 							center:[40.761077, -73.88],
@@ -147,7 +147,7 @@ $(document).ready(function() {
 					overlay: {
 						values: markers,
 						events: {
-							click: function(marker, event, context) {															
+							click: function(marker, event, context) {
 								$('.map-popup-content-wrapper').css('display', 'none');
 
 								if ($(event[0].target).hasClass('close')) {
@@ -158,8 +158,8 @@ $(document).ready(function() {
 							}
 						}
 					}
-				});					
-			}		
+				});
+			}
 		});
 	}
 
@@ -177,7 +177,7 @@ $(document).ready(function() {
 	 		},
 	 		540: {
 	 			items: 2
-	 		},	
+	 		},
 	 		766: {
 	 			items: 2
 	 		},
@@ -186,7 +186,7 @@ $(document).ready(function() {
 	 		},
 	 		1200: {
 	 			items: 4
-	 		}	 		
+	 		}
 	 	}
 	 });
 
@@ -211,8 +211,8 @@ $(document).ready(function() {
 
 	/**
 	 * Customizer
-	 */	 
-	$('.customizer-title').on('click', function() {		
+	 */
+	$('.customizer-title').on('click', function() {
 		$('.customizer').toggleClass('open');
 	});
 

@@ -1,0 +1,58 @@
+<div class="header header-small">
+  <div class="header-inner">
+    <div class="container-fluid">
+      <div class="header-top">
+        <div class="header-top-inner">
+          <a class="header-logo" href="#/">
+            <div class="logo"></div>
+            <span class="header-logo-text">{{navStructure.logoName}}</span>
+          </a><!-- /.header-logo -->
+
+          <a class="header-action" href="properties-submit.html">
+            <i class="fa fa-upload"></i> <span>Upload Property</span>
+          </a><!-- /.header-action -->
+
+
+<div class="nav-primary-wrapper collapse navbar-toggleable-sm">
+<ul class="nav nav-pills nav-primary">
+  <li class="nav-item nav-item-parent">
+    <a href="#" class="nav-link ">
+      {{navStructure.navOne}}
+    </a>
+    <ul class="sub-menu" >
+      <li ng-repeat="x in navStructure.liOne"><a href="{{x.link}}">{{x.text}}</a></li>
+    </ul>
+  </li>
+  <li class="nav-item nav-item-parent">
+    <a href="#" class="nav-link ">
+      {{navStructure.navTwo}}
+    </a>
+    <ul class="sub-menu">
+      <li ng-repeat="x in navStructure.liTwo"><a href="{{x.link}}">{{x.text}}</a></li>
+    </ul>
+  </li>
+
+
+  <li class="nav-item nav-item-parent">
+    <a href="dashboard-properties.html" class="nav-link ">
+      {{navStructure.navThree}}
+    </a>
+
+    <ul class="sub-menu">
+      <li ng-repeat="x in navStructure.liThree"><a href="{{x.link}}">{{x.text}}</a></li>
+    </ul>
+  </li>
+</ul><!-- /.nav -->
+</div><!-- /.nav-primary -->
+
+
+          <button class="navbar-toggler pull-xs-right hidden-md-up" type="button" data-toggle="collapse" data-target=".nav-primary-wrapper">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+        </div><!-- /.header-top-inner -->
+      </div><!-- /.header-top -->
+    </div><!-- /.container-fluid -->
+  </div><!-- /.header-inner -->
+</div><!-- /.header -->
