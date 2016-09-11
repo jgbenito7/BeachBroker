@@ -1,5 +1,22 @@
 a:hover,a:visited,a:active{
   text-decoration: none !important;
+  cursor: pointer;
+}
+
+::-webkit-input-placeholder {
+   color: #484848;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #484848;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #484848;
+}
+
+:-ms-input-placeholder {
+   color: #484848;
 }
 
 .cover-image {
@@ -177,18 +194,23 @@ hr.skinny{
   background:#eaeaea;
 }
 
-::-webkit-input-placeholder {
-   color: #484848;
+.full-screen{
+  padding-top:60px;
+  position:fixed;
+  height:100%;
+  width:100%;
+  overflow-y:hidden;
+  overflow-x: hidden;
 }
 
-:-moz-placeholder { /* Firefox 18- */
-   color: #484848;
+.stretch-height{
+  height:100%;
 }
 
-::-moz-placeholder {  /* Firefox 19+ */
-   color: #484848;
+.overflow-y-hidden{
+  overflow-y: hidden;
 }
 
-:-ms-input-placeholder {
-   color: #484848;
+.btn:hover{
+  cursor:pointer !important;
 }

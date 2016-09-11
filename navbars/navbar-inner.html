@@ -9,61 +9,29 @@
         <span class="header-logo-text">{{navStructure.logoName}}</span>
       </a><!-- /.header-logo -->
 
-      <a class="header-action" href="#/submit">
+      <a class="header-action" href="properties-submit.html">
         <i class="fa fa-upload"></i> <span>Upload Property</span>
       </a><!-- /.header-action -->
 
 
 <div class="nav-primary-wrapper collapse navbar-toggleable-sm">
 <ul class="nav nav-pills nav-primary">
-
 <li class="nav-item nav-item-parent">
-  <a class="nav-link ">
-    {{navStructure.navOne}}
-  </a>
-  <ul class="sub-menu" >
-    <li ng-repeat="x in navStructure.liOne"><a href="{{x.link}}">{{x.text}}</a></li>
-  </ul>
+<a href="index.html" class="nav-link ">
+  {{navStructure.navOne}}
+</a>
+
+<ul class="sub-menu" >
+  <li ng-repeat="x in navStructure.liOne"><a href="{{x.link}}">{{x.text}}</a></li>
+</ul>
 </li>
+
 <li class="nav-item nav-item-parent">
   <a href="#" class="nav-link ">
     {{navStructure.navTwo}}
   </a>
   <ul class="sub-menu">
     <li ng-repeat="x in navStructure.liTwo"><a href="{{x.link}}">{{x.text}}</a></li>
-  </ul>
-</li>
-<li class="nav-item nav-item-parent">
-  <a href="#" class="nav-link ">
-    Pages
-  </a>
-  <ul class="sub-menu">
-    <li><a href="sticky-header.html">Sticky Header</a></li>
-    <li><a href="pricing.html">Pricing Tables</a></li>
-    <li><a href="filters.html">Filters</a></li>
-    <li><a href="boxes.html">Boxes</a></li>
-    <li><a href="faq.html">FAQ</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="invoice.html">Invoice</a></li>
-    <li><a href="messages.html">Messages</a></li>
-    <li><a href="grid.html">Grid</a></li>
-    <li><a href="registration.html">Registration</a></li>
-    <li><a href="login.html">Login</a></li>
-    <li><a href="reset-password.html">Reset Password</a></li>
-    <li><a href="tables.html">Tables</a></li>
-    <li><a href="terms-conditions.html">Terms &amp; Conditions</a></li>
-    <li class="nav-item-parent">
-      <a href="#">Sample Submenu</a>
-
-      <ul class="sub-menu">
-        <li><a href="#">Item 1</a></li>
-        <li><a href="#">Item 2</a></li>
-        <li><a href="#">Item 3</a></li>
-      </ul>
-    </li>
-    <li><a href="403.html">403 - Access Forbidden</a></li>
-    <li><a href="404.html">404 - Not Found</a></li>
-    <li><a href="500.html">500 - Internal Error</a></li>
   </ul>
 </li>
 
@@ -85,10 +53,10 @@
   </a>
 </li>
 
-
-
 </ul><!-- /.nav -->
 </div><!-- /.nav-primary -->
+
+
       <button class="navbar-toggler pull-xs-right hidden-md-up" type="button" data-toggle="collapse" data-target=".nav-primary-wrapper">
                     <span></span>
                     <span></span>

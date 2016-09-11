@@ -1,4 +1,4 @@
-var app = angular.module("beachBroker", ["ngRoute"]);
+var app = angular.module("beachBroker", ["ngRoute","ngCookies"]);
 
 app.config(function($routeProvider) {
     $routeProvider
@@ -11,12 +11,42 @@ app.config(function($routeProvider) {
     }).when("/properties", {
         templateUrl : "templates/properties-map.html",
         controller : "propertySearchCtrl"
+    }).when("/single-property/:propId", {
+        templateUrl : "templates/properties-detail-standard.html",
+        controller : "singlePropertyCtrl"
+    }).when("/submit", {
+        templateUrl : "templates/properties-submit.html",
+        isLogin: true
+    }).when("/dashboard", {
+        templateUrl : "templates/dashboard-properties.html",
+        isLogin: true
     }).otherwise({
       redirectTo: '/'
     });
 });
 
-app.run(function($rootScope) {
+app.run(function($rootScope,$cookies) {
+
+
+    $rootScope.baseUrl = "http://localhost:8080";
+
+    $rootScope.userToken = $cookies.get("userToken");
+
+    $rootScope.$on('$routeChangeStart', function (event, next) {
+        if($rootScope.userToken){
+          var userAuthenticated = true;
+        }
+
+        if (!userAuthenticated && next.isLogin) {
+            /* You can save the user's location to take him back to the same page after he has logged-in */
+            //$rootScope.savedLocation = location.url();
+            window.location.href = "#/login";
+            //$location.path('#/login');
+        }
+    });
+
+    console.log($rootScope.userToken);
+
     $rootScope.navStructure = {
       logoName: "BeachBroker.com",
       navOne: "Buy",
@@ -31,10 +61,19 @@ app.run(function($rootScope) {
       ],
       navThree: "Admin",
       liThree: [
-        { link:"#login", text:"Login"},
-        { link:"#login", text:"Logout" }
+        { link:"#dashboard", text:"My Dashboard"},
+        { link:"none", text:"Logout" }
       ],
     };
+
+    //Log a user out
+    $rootScope.logout = function () {
+      $cookies.remove("userToken");
+      location.reload();
+      //window.location.reload(true);
+    };
+
+
 })
 .controller('mainCtrl', function($scope, $rootScope) {
   $.getScript('assets/js/villareal.js', function(){});
@@ -42,7 +81,10 @@ app.run(function($rootScope) {
 .controller('propertySearchCtrl', function($scope, $rootScope) {
   $.getScript('assets/js/villareal.js', function(){});
 })
-.controller('loginCtrl', function($scope, $rootScope) {
+.controller('singlePropertyCtrl', function($scope, $rootScope) {
+  $.getScript('assets/js/villareal.js', function(){});
+})
+.controller('loginCtrl', function($scope, $rootScope, $http, $cookies) {
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '692544747562130',
@@ -63,16 +105,81 @@ app.run(function($rootScope) {
      $("#register").click(function(){
        $('#myModal').modal('show');
      });
+   });
 
-     $("#login").click(function(){
+   $scope.userAuthenticate= function () {
+           // use $.param jQuery function to serialize data from JSON
+            var data = $.param({
+                email: $scope.userEmail,
+                password: $scope.userPassword
+            });
 
-     });
-   })
+            var config = {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            }
 
+            $http.post($rootScope.baseUrl + "/users/authorize", data, config)
+            .success(function (data, status, headers, config) {
+                console.log("Login Success");
+                //Set rootScope and Cookie to token
+                $cookies.put("userToken", data['token']);
+                $rootScope.userToken = $cookies.get("userToken");
+                window.location.href = "#/dashboard";
+            })
+            .error(function (data, status, header, config) {
+                console.log("Error");
+                $scope.ResponseDetails = "Data: " + data +
+                    "<hr />status: " + status +
+                    "<hr />headers: " + header +
+                    "<hr />config: " + config;
+                console.log($scope.ResponseDetails);
+            });
+  };
 
+  $scope.createUser = function () {
+          // use $.param jQuery function to serialize data from JSON
 
+          if($scope.userCreateEmail.length > 0 &&
+             $scope.userFirstName.length > 0 &&
+             $scope.userLastName.length > 0 &&
+             $scope.userCreatePassword.length > 0 &&
+             $scope.userConfirmPassword.length > 0 &&
+             ($scope.userCreatePassword == $scope.userConfirmPassword)
+           ){
+             var data = $.param({
+                 email: $scope.userCreateEmail,
+                 password: $scope.userCreatePassword,
+                 firstName: $scope.userFirstName,
+                 lastName: $scope.userLastName
+             });
 
+             var config = {
+                 headers : {
+                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                 }
+             }
 
+             $http.post($rootScope.baseUrl + "/users", data, config)
+             .success(function (data, status, headers, config) {
+               //Set rootScope and Cookie to token
+               $cookies.put("userToken", data['token']);
+               $rootScope.userToken = $cookies.get("userToken");
+               window.location.href = "#/dashboard";
+             })
+             .error(function (data, status, header, config) {
+                 console.log("Error");
+                 $scope.ResponseDetails = "Data: " + data +
+                     "<hr />status: " + status +
+                     "<hr />headers: " + header +
+                     "<hr />config: " + config;
+                 console.log($scope.ResponseDetails);
+             });
+           }else{
+             console.log("invalid params");
+           }
 
-  //$.getScript('assets/js/villareal.js', function(){});
+  };
+
 });

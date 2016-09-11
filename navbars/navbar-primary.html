@@ -33,14 +33,22 @@
   </li>
 
 
-  <li class="nav-item nav-item-parent">
+  <li ng-if="userToken" class="nav-item nav-item-parent">
     <a href="dashboard-properties.html" class="nav-link ">
       {{navStructure.navThree}}
     </a>
 
     <ul class="sub-menu">
-      <li ng-repeat="x in navStructure.liThree"><a href="{{x.link}}">{{x.text}}</a></li>
+      <li ng-repeat="x in navStructure.liThree">
+        <a ng-if="x.link != 'none'" href="{{x.link}}">{{x.text}}</a>
+        <a id="logout" ng-if="x.link == 'none'" ng-click="logout()">{{x.text}}</a>
+      </li>
     </ul>
+  </li>
+  <li ng-if="userToken == undefined" class="nav-item">
+    <a href="#/login" class="nav-link ">
+      Login
+    </a>
   </li>
 </ul><!-- /.nav -->
 </div><!-- /.nav-primary -->

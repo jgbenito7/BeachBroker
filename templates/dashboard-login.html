@@ -14,12 +14,12 @@
           <div class='row'>
               <div class='col-sm-6 pad-adjust-right'>
                 <div class="form-group">
-      						<input type="text" class="form-control register-field" placeholder="First Name">
+      						<input type="text" class="form-control register-field" placeholder="First Name" ng-model="userFirstName">
       					</div><!-- /.form-group -->
               </div>
               <div class='col-sm-6 pad-adjust-left'>
                 <div class="form-group">
-      						<input type="text" class="form-control register-field" placeholder="Last Name">
+      						<input type="text" class="form-control register-field" placeholder="Last Name" ng-model="userLastName">
       					</div><!-- /.form-group -->
               </div>
           </div>
@@ -27,17 +27,17 @@
 
 
 					<div class="form-group">
-						<input type="text" class="form-control register-field" placeholder="Email">
+						<input type="text" class="form-control register-field" placeholder="Email" ng-model="userCreateEmail">
 					</div><!-- /.form-group -->
 
 					<div class="form-group">
-						<input type="text" class="form-control register-field" placeholder="Password">
+						<input type="password" class="form-control register-field" placeholder="Password" ng-model="userCreatePassword">
 					</div><!-- /.form-group -->
           <div class="form-group">
-						<input type="text" class="form-control register-field" placeholder="Confirm Password">
+						<input type="password" class="form-control register-field" placeholder="Confirm Password" ng-model="userConfirmPassword">
 					</div><!-- /.form-group -->
           <div class="form-group-btn">
-						<button type="submit" class="btn btn-primary btn-stretch">Register</button>
+						<button type="submit" class="btn btn-primary btn-stretch" ng-click="createUser()">Register</button>
 					</div><!-- /.form-group-btn -->
 
           <div class="signup-or">
@@ -89,15 +89,15 @@
 				<form method="post">
 					<div class="form-group">
 						<label for="">Email</label>
-						<input type="text" class="form-control">
+						<input type="text" class="form-control" ng-model="userEmail">
 					</div><!-- /.form-group -->
 
 					<div class="form-group">
 						<label for="">Password</label>
-						<input type="text" class="form-control">
+						<input type="password" class="form-control" ng-model="userPassword">
 					</div><!-- /.form-group -->
           <div class="form-group-btn">
-						<button type="submit" class="btn btn-primary pull-right btn-stretch">Sign In</button>
+						<button type="submit" class="btn btn-primary pull-right btn-stretch" ng-click="userAuthenticate()">Sign In</button>
 					</div><!-- /.form-group-btn -->
 
           <hr class='skinny'>
