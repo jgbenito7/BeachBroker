@@ -40,6 +40,11 @@ a:hover,a:visited,a:active{
   margin-right:10px;
 }
 
+.logo-larger{
+  height:70px;
+  width:70px;
+}
+
 .header-logo-shape:before, .header-logo-shape:after{
   background-color:rgba(0,0,0,0) !important;
   height:0px;
@@ -213,4 +218,13 @@ hr.skinny{
 
 .btn:hover{
   cursor:pointer !important;
+}
+
+.dropzone{
+  border: 1px dashed #EC8C6F;
+  border-radius: 5px;
+}
+
+.dz-message > span{
+  font-size:25px;
 }
