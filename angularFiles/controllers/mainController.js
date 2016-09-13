@@ -1,4 +1,4 @@
-var app = angular.module("beachBroker", ["ngRoute","ngCookies"]);
+var app = angular.module("beachBroker", ["ngRoute","ngCookies",'bcherny/formatAsCurrency']);
 
 app.config(function($routeProvider) {
     $routeProvider

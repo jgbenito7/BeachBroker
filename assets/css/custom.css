@@ -235,3 +235,7 @@ hr.skinny{
   background-image:url("../img/bg/bg-4.jpg");
   background-size: cover;
 }
+
+.bg-eaeaea{
+  background: #eaeaea;
+}
