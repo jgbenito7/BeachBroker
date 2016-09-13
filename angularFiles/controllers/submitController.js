@@ -1,76 +1,85 @@
 app.controller('submitCtrl', function($scope, $rootScope) {
-  //$.getScript('assets/js/dropzone.js', function(){
-    $("#my-awesome-dropzone").dropzone({ url: "/file/post" });
-    //console.log("fileLoaded");
-    /*$("div#upload-widget").dropzone({ url: "/file/post" });
-    Dropzone.options.uploadWidget = {
-    paramName: 'file',
-    maxFilesize: 2, // MB
-    maxFiles: 1,
-    dictDefaultMessage: 'Drag an image here to upload, or click to select one',
-    headers: {
-      'x-csrf-token': document.querySelectorAll('meta[name=csrf-token]')[0].getAttributeNode('content').value,
-    },
-    acceptedFiles: 'image/*',
-    init: function() {
-      this.on('success', function( file, resp ){
-        console.log( file );
-        console.log( resp );
-      });
-      this.on('thumbnail', function(file) {
-        if ( file.width < 640 || file.height < 480 ) {
-          file.rejectDimensions();
-        }
-        else {
-          file.acceptDimensions();
-        }
-      });
-    },
-    accept: function(file, done) {
-      file.acceptDimensions = done;
-      file.rejectDimensions = function() {
-        done('The image must be at least 640 x 480px')
-      };
-    }
-  };*/
-  // Dropzone.options.myAwesomeDropzone = {
-  //   paramName: "file", // The name that will be used to transfer the file
-  //   maxFilesize: 2, // MB
-  //   accept: function(file, done) {
-  //     if (file.name == "justinbieber.jpg") {
-  //       done("Naha, you don't.");
-  //     }
-  //     else { done(); }
-  //   },
-  //   previewTemplate: "<div class='dz-preview dz-file-preview'>" +
-  //                       "<div class='dz-image'>" +
-  //                         "<img data-dz-thumbnail />"+
-  //                       "</div>"+
-  //                       "<div class='dz-details'>"+
-  //                         "<div class='dz-size'>"+
-  //                           "<span data-dz-size></span>"+
-  //                         "</div>"+
-  //                         "<div class='dz-filename'>"+
-  //                           "<span data-dz-name></span>"+
-  //                         "</div>"+
-  //                       "</div>"+
-  //                       "<div class='dz-progress'>"+
-  //                       "  <span class='dz-upload' data-dz-uploadprogress></span>"+
-  //                       "</div>"+
-  //                       "<div class='dz-error-message'>"+
-  //                       "  <span data-dz-errormessage></span>"+
-  //                       "</div>"+
-  //                       "<div class='dz-success-mark'>"+
-  //                     "    <svg>REMOVED FOR BREVITY</svg>"+
-  //                     "  </div>"+
-  //                     "  <div class='dz-error-mark'>"+
-  //                     "    <svg>REMOVED FOR BREVITY</svg>"+
-  //                     "  </div>"+
-  //                     "</div>"
-  // };
+  $scope.submitProperty = function(){
+    $scope.processDropzone();
+  };
 
-//});
+  //$scope.title = "";
 
 
 
 });
+
+app.directive('dropzone', function($cookies) {
+                return {
+                    restrict: 'C',
+                    link: function(scope, element, attrs) {
+
+                        var config = {
+                            url: 'http://localhost:8080/listings/pictures',
+                            method: "post",
+                            maxFilesize: 15,
+                            paramName: "file",
+                            uploadMultiple: true,
+                            headers:{
+                              // remove Cache-Control and X-Requested-With
+                              // to be sent along with the request
+                              'Cache-Control': null,
+                              'X-Requested-With': null
+                            },
+                            maxFiles: 12,
+                            dictDefaultMessage: "Upload Images Here",
+                            acceptedFiles: ".png,.jpeg,.jpg",
+                            autoProcessQueue: false,
+                            addRemoveLinks: true
+                        };
+
+                        var eventHandlers = {
+                            'addedfile': function(file) {
+                                //scope.file = file;
+                                //console.log(file)
+                                // if (this.files[1]!=null) {
+                                //     this.removeFile(this.files[0]);
+                                // }
+
+                            },
+                            'maxfilesexceeded': function(file){
+                              scope.file = file;
+                              if (this.files[1]!=null) {
+                                  this.removeFile(this.files[0]);
+                              }
+                            },
+                            'sending': function(file, xhr, formData){
+                              //console.log(formData);
+                              formData.append("userToken", $cookies.get("userToken"));
+                              formData.append("title",scope.title);
+                              formData.append("description",scope.description);
+                              formData.append("address",scope.address);
+                              formData.append("city",scope.city);
+                              formData.append("state", scope.state);
+                              formData.append("zipcode",scope.zipcode);
+                              formData.append("cost",scope.cost);
+                              formData.append("beachDistance",scope.beachDistance);
+                              formData.append("published","no");
+                            },
+
+                            'success': function (file, response) {
+                            }
+
+                        };
+
+                        dropzone = new Dropzone(element[0], config);
+
+                        angular.forEach(eventHandlers, function(handler, event) {
+                            dropzone.on(event, handler);
+                        });
+
+                        scope.processDropzone = function() {
+                            dropzone.processQueue();
+                        };
+
+                        scope.resetDropzone = function() {
+                            dropzone.removeAllFiles();
+                        }
+                    }
+                }
+            });

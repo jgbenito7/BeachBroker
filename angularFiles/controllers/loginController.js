@@ -22,6 +22,8 @@ app.controller('loginCtrl', function($scope, $rootScope, $http, $cookies) {
    });
 
    $scope.userAuthenticate= function () {
+
+     console.log("Authenticating user");
            // use $.param jQuery function to serialize data from JSON
             var data = $.param({
                 email: $scope.userEmail,

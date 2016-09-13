@@ -26,11 +26,12 @@ app.config(function($routeProvider) {
     });
 });
 
-app.run(function($rootScope,$cookies) {
+app.run(function($rootScope,$cookies,$route,$location) {
 
 
     $rootScope.baseUrl = "http://localhost:8080";
 
+    //I may need to do some kind of session thing here if user disables cookies
     $rootScope.userToken = $cookies.get("userToken");
 
     $rootScope.$on('$routeChangeStart', function (event, next) {
@@ -39,10 +40,7 @@ app.run(function($rootScope,$cookies) {
         }
 
         if (!userAuthenticated && next.isLogin) {
-            /* You can save the user's location to take him back to the same page after he has logged-in */
-            //$rootScope.savedLocation = location.url();
-            window.location.href = "#/login";
-            //$location.path('#/login');
+            $location.path('login');
         }
     });
 
@@ -70,8 +68,8 @@ app.run(function($rootScope,$cookies) {
     //Log a user out
     $rootScope.logout = function () {
       $cookies.remove("userToken");
-      location.reload();
-      //window.location.reload(true);
+      //$route.reload();
+      window.location.reload(true);
     };
 
 
