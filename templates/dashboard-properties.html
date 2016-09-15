@@ -17,7 +17,7 @@
 				<div class="dashboard-user hidden-md-down">
 					<div class="dashboard-user-image" style="background-image: url('assets/img/profile.jpg');">
 					</div><!-- /.dashboar-user-image -->
-					<strong>Joey Gomez-Benito</strong>
+					<strong>{{userData['firstName']}} {{userData['lastName']}}</strong>
 				</div><!-- /.dashboard-user -->
 
 				<div class="dashboard-nav-primary collapse navbar-toggleable-md">
@@ -72,7 +72,7 @@
 					</div><!-- /.dashboard-header -->
 
 					<div class="dashboard-subheader">
-						<h2>You have 5 properties listed.</h2>
+						<h2>You have {{data.length}} properties listed.</h2>
 
 						<!--<div class="dashboard-subheader-actions">
 							<a href="#" class="btn btn-secondary"><i class="fa fa-filter"></i> Redefine Search Criteria</a><a href="#" class="btn btn-secondary"><i class="fa fa-times"></i> Remove All</a>
@@ -81,141 +81,34 @@
 
 					<div class="row">
 
-	<div class="col-md-6 col-lg-4 col-xl-3">
+	<div ng-repeat="x in data" class="col-md-6 col-lg-4 col-xl-3">
 		<div class="listing-box">
-	<div class="listing-box-image" style="background-image: url('assets/img/tmp/tmp-5.jpg')">
-		<div class="listing-box-image-label">Featured</div><!-- /.listing-box-image-label -->
+    	<div class="listing-box-image" style="background-image: url({{serverUrl}}{{imageUrl}}{{x['filePath']}})">
 
-		<span class="listing-box-image-links">
-			<a href="properties.html"><i class="fa fa-heart"></i> <span>Add to favorites</span></a>
-			<a href="properties-detail-standard.html"><i class="fa fa-search"></i> <span>View detail</span></a>
-			<a href="properties-compare.html"><i class="fa fa-balance-scale"></i> <span>Compare property</span></a>
-		</span>
-	</div><!-- /.listing-box-image -->
 
-	<div class="listing-box-title">
-		<h2><a href="properties-detail-standard.html">Bright Island Route</a></h2>
-		<h3>$ 40.000</h3>
-	</div><!-- /.listing-box-title -->
+    		<span class="listing-box-image-links">
+    			<a href="properties.html"><i class="fa fa-heart"></i> <span>Edit Property</span></a>
+    			<a href="properties-detail-standard.html"><i class="fa fa-search"></i> <span>View Property</span></a>
+    			<a href="properties-compare.html"><i class="fa fa-balance-scale"></i> <span>Compare property</span></a>
+    		</span>
+    	</div><!-- /.listing-box-image -->
 
-	<div class="listing-box-content">
-		<dl>
-			<dt>Type</dt><dd>House</dd>
-			<dt>Location</dt><dd>New York</dd>
-			<dt>Area</dt><dd>180 sqft</dd>
-		</dl>
-	</div><!-- /.listing-box-cotntent -->
-</div><!-- /.listing-box -->
-	</div><!-- /.col-* -->
+    	<div class="listing-box-title">
+    		<h2><a href="properties-detail-standard.html">{{x['title']}}</a></h2>
+    		<h3>${{x['cost']}}</h3>
+    	</div><!-- /.listing-box-title -->
 
-	<div class="col-md-6 col-lg-4 col-xl-3">
-		<div class="listing-box">
-	<div class="listing-box-image" style="background-image: url('assets/img/tmp/tmp-4.jpg')">
-		<div class="listing-box-image-label">Featured</div><!-- /.listing-box-image-label -->
-
-		<span class="listing-box-image-links">
-			<a href="properties.html"><i class="fa fa-heart"></i> <span>Add to favorites</span></a>
-			<a href="properties-detail-standard.html"><i class="fa fa-search"></i> <span>View detail</span></a>
-			<a href="properties-compare.html"><i class="fa fa-balance-scale"></i> <span>Compare property</span></a>
-		</span>
-	</div><!-- /.listing-box-image -->
-
-	<div class="listing-box-title">
-		<h2><a href="properties-detail-standard.html">Misty Valley</a></h2>
-		<h3>$ 27.000</h3>
-	</div><!-- /.listing-box-title -->
-
-	<div class="listing-box-content">
-		<dl>
-			<dt>Type</dt><dd>House</dd>
-			<dt>Location</dt><dd>New York</dd>
-			<dt>Area</dt><dd>180 sqft</dd>
-		</dl>
-	</div><!-- /.listing-box-cotntent -->
-</div><!-- /.listing-box -->
-	</div><!-- /.col-* -->
-
-	<div class="col-md-6 col-lg-4 col-xl-3">
-		<div class="listing-box">
-	<div class="listing-box-image" style="background-image: url('assets/img/tmp/tmp-11.jpg')">
-		<div class="listing-box-image-label">Featured</div><!-- /.listing-box-image-label -->
-
-		<span class="listing-box-image-links">
-			<a href="properties.html"><i class="fa fa-heart"></i> <span>Add to favorites</span></a>
-			<a href="properties-detail-standard.html"><i class="fa fa-search"></i> <span>View detail</span></a>
-			<a href="properties-compare.html"><i class="fa fa-balance-scale"></i> <span>Compare property</span></a>
-		</span>
-	</div><!-- /.listing-box-image -->
-
-	<div class="listing-box-title">
-		<h2><a href="properties-detail-standard.html">Foggy Anchor Campus</a></h2>
-		<h3>$ 840.000</h3>
-	</div><!-- /.listing-box-title -->
-
-	<div class="listing-box-content">
-		<dl>
-			<dt>Type</dt><dd>House</dd>
-			<dt>Location</dt><dd>New York</dd>
-			<dt>Area</dt><dd>180 sqft</dd>
-		</dl>
-	</div><!-- /.listing-box-cotntent -->
+    	<div class="listing-box-content">
+    		<dl>
+    			<!--<dt>Type</dt><dd>House</dd>-->
+    			<dt>Location</dt><dd>{{x['state']}}</dd>
+    			<dt>Area</dt><dd>{{x['sqft']}} sqft</dd>
+    		</dl>
+    	</div><!-- /.listing-box-cotntent -->
 </div><!-- /.listing-box -->
 	</div><!-- /.col-* -->
 
 
-	<div class="col-md-6 col-lg-4 col-xl-3">
-		<div class="listing-box">
-	<div class="listing-box-image" style="background-image: url('assets/img/tmp/tmp-8.jpg')">
-		<div class="listing-box-image-label">Featured</div><!-- /.listing-box-image-label -->
-
-		<span class="listing-box-image-links">
-			<a href="properties.html"><i class="fa fa-heart"></i> <span>Add to favorites</span></a>
-			<a href="properties-detail-standard.html"><i class="fa fa-search"></i> <span>View detail</span></a>
-			<a href="properties-compare.html"><i class="fa fa-balance-scale"></i> <span>Compare property</span></a>
-		</span>
-	</div><!-- /.listing-box-image -->
-
-	<div class="listing-box-title">
-		<h2><a href="properties-detail-standard.html">Hidden Trace</a></h2>
-		<h3>$ 340.000</h3>
-	</div><!-- /.listing-box-title -->
-
-	<div class="listing-box-content">
-		<dl>
-			<dt>Type</dt><dd>House</dd>
-			<dt>Location</dt><dd>New York</dd>
-			<dt>Area</dt><dd>180 sqft</dd>
-		</dl>
-	</div><!-- /.listing-box-cotntent -->
-</div><!-- /.listing-box -->
-	</div><!-- /.col-* -->
-
-	<div class="col-md-6 col-lg-4 col-xl-3">
-		<div class="listing-box">
-	<div class="listing-box-image" style="background-image: url('assets/img/tmp/tmp-12.jpg')">
-		<div class="listing-box-image-label">Featured</div><!-- /.listing-box-image-label -->
-
-		<span class="listing-box-image-links">
-			<a href="properties.html"><i class="fa fa-heart"></i> <span>Add to favorites</span></a>
-			<a href="properties-detail-standard.html"><i class="fa fa-search"></i> <span>View detail</span></a>
-			<a href="properties-compare.html"><i class="fa fa-balance-scale"></i> <span>Compare property</span></a>
-		</span>
-	</div><!-- /.listing-box-image -->
-
-	<div class="listing-box-title">
-		<h2><a href="properties-detail-standard.html">Thunder Pond Centre</a></h2>
-		<h3>$ 480 / per week</h3>
-	</div><!-- /.listing-box-title -->
-
-	<div class="listing-box-content">
-		<dl>
-			<dt>Type</dt><dd>House</dd>
-			<dt>Location</dt><dd>New York</dd>
-			<dt>Area</dt><dd>180 sqft</dd>
-		</dl>
-	</div><!-- /.listing-box-cotntent -->
-</div><!-- /.listing-box -->
-	</div><!-- /.col-* -->
 
 
 <div class="pagination-wrapper">
@@ -227,13 +120,13 @@
 			</a>
 		</li>
 
-		<li class="page-item">
-			<a class="page-link" href="#">1</a>
+		<li class="page-item active">
+			<a class="page-link " href="#">1 <span class="sr-only">(current)</span></a>
 		</li>
 
 		<li class="page-item"><a class="page-link" href="#">2</a></li>
 
-		<li class="page-item active"><a class="page-link" href="#">3 <span class="sr-only">(current)</span></a></li>
+		<li class="page-item "><a class="page-link" href="#">3 </a></li>
 
 		<li class="page-item"><a class="page-link" href="#">4</a></li>
 

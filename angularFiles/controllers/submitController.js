@@ -1,13 +1,24 @@
-app.controller('submitCtrl', function($scope, $rootScope) {
+app.controller('submitCtrl', function($scope, $rootScope, $location) {
   $scope.submitProperty = function(){
     // enable auto process queue after uploading started
 
-    $scope.processDropzone();
+    $scope.processDropzone(function(){
+
+    });
   };
-  $scope.cost = "";
+
+  document.getElementById("myRange").max = "5000";
+  $scope.cost = 0;
+
+  $scope.test = function(){
+    console.log($scope.address);
+  }
+
+
+
 });
 
-app.directive('dropzone', function($cookies) {
+app.directive('dropzone', function($cookies,$location,$route) {
                 return {
                     restrict: 'C',
                     link: function(scope, element, attrs) {
@@ -25,11 +36,11 @@ app.directive('dropzone', function($cookies) {
                               'Cache-Control': null,
                               'X-Requested-With': null
                             },
-                            maxFiles: 12,
+                            maxFiles: 28,
                             dictDefaultMessage: "Upload Images Here",
                             acceptedFiles: ".png,.jpeg,.jpg",
                             autoProcessQueue: false,
-                            parallelUploads: 12,
+                            parallelUploads: 28,
                             addRemoveLinks: true
                         };
 
@@ -59,22 +70,27 @@ app.directive('dropzone', function($cookies) {
 
                               //console.log(formData);
                               formData.append("userToken", $cookies.get("userToken"));
-                              formData.append("title",scope.title);
                               formData.append("description",scope.description);
-                              formData.append("address",scope.address);
-                              formData.append("city",scope.city);
-                              formData.append("state", scope.state);
-                              formData.append("zipcode",scope.zipcode);
+                              formData.append("fullAddress",scope.address.fullAddress);
+                              formData.append("streetNumber",scope.address.streetNumber);
+                              formData.append("streetName",scope.address.streetName);
+                              formData.append("city",scope.address.city);
+                              formData.append("state", scope.address.state);
+                              formData.append("country", scope.address.country);
+                              formData.append("zipcode",scope.address.zipcode);
+                              formData.append("latitude",scope.address.lat);
+                              formData.append("longitude",scope.address.long);
                               formData.append("cost",scope.cost);
                               formData.append("sqft",scope.sqft);
                               formData.append("beds",scope.beds);
                               formData.append("baths",scope.baths);
                               formData.append("beachDistance",scope.beachDistance);
+                              formData.append("homeType",scope.homeType);
                               formData.append("published","no");
                             },
 
-                            'successmultiple': function (file, response) {
-                              //
+                            'completemultiple': function (file, response) {
+
                             }
 
                         };
@@ -85,9 +101,10 @@ app.directive('dropzone', function($cookies) {
                             dropzone.on(event, handler);
                         });
 
-                        scope.processDropzone = function() {
+                        scope.processDropzone = function(callback) {
                             dropzone.options.autoProcessQueue = true;
                             dropzone.processQueue();
+                            callback();
                         };
 
                         scope.resetDropzone = function() {
@@ -96,6 +113,13 @@ app.directive('dropzone', function($cookies) {
 
                         dropzone.on("queuecomplete", function() {
                           dropzone.options.autoProcessQueue = false;
+                          var delay = 2000; //2 second
+
+                          setTimeout(function() {
+                            $location.path('dashboard');
+                            $route.reload();
+                          }, delay);
+
                         });
                     }
                 }

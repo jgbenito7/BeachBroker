@@ -1,4 +1,4 @@
-var app = angular.module("beachBroker", ["ngRoute","ngCookies",'bcherny/formatAsCurrency']);
+var app = angular.module("beachBroker", ["ngRoute","ngCookies","ngAnimate",'bcherny/formatAsCurrency', 'vsGoogleAutocomplete']);
 
 app.config(function($routeProvider) {
     $routeProvider
@@ -20,6 +20,7 @@ app.config(function($routeProvider) {
         isLogin: true
     }).when("/dashboard", {
         templateUrl : "templates/dashboard-properties.html",
+        controller : "dashboardCtrl",
         isLogin: true
     }).otherwise({
       redirectTo: '/'
@@ -30,6 +31,10 @@ app.run(function($rootScope,$cookies,$route,$location) {
 
 
     $rootScope.baseUrl = "http://localhost:8080";
+
+    $rootScope.serverUrl = "http://localhost:8888/Beach%20Broker%20Server";
+
+    $rootScope.imageUrl = "/images/listings/";
 
     //I may need to do some kind of session thing here if user disables cookies
     $rootScope.userToken = $cookies.get("userToken");

@@ -32,110 +32,105 @@
 
 
 
-				<div class="container">
+<div class="container">
+  <div class="content">
+  	<form method="post" action="?">
 
-				            <div class="content">
-				            	<form method="post" action="?">
-	<div class="page-header page-header-small">
-		<h3>Basic Information</h3>
-	</div>
-
-	<div class="form-group">
-		<label>Property Title</label>
-		<input type="text" class="form-control" ng-model="title">
-	</div>
-
-	<div class="form-group">
-		<label>Description</label>
-		<textarea class="form-control" rows="6" ng-model="description"></textarea>
-	</div>
-
-  <div class="row">
-    <div class="col-sm-3">
-      <div class="form-group">
-    		<label>Cost</label>
-    		<input type="text" class="form-control" rows="6" ng-model="cost" format-as-currency>
+      <div class="page-header page-header-small">
+    		<h3>Enter Your Property Location</h3>
     	</div>
-    </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-    		<label>SQFT</label>
-    		<input type="text" class="form-control"  ng-model="sqft" >
-    	</div>
-    </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-    		<label>Beds</label>
-    		<input type="text" class="form-control" ng-model="beds">
-    	</div>
-    </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-    		<label>Baths</label>
-    		<input type="text" class="form-control" ng-model="baths" >
-    	</div>
-    </div>
-  </div>
-
-
-	<div class="page-header page-header-small">
-		<h3>Location</h3>
-	</div>
-
-	<div class="row">
-		<div class="col-sm-3">
-			<div class="form-group">
-				<label>Address</label>
-				<input class="form-control" ng-model="address"></select>
-			</div>
-		</div>
-
-		<div class="col-sm-3">
-			<div class="form-group">
-				<label>City</label>
-				<input class="form-control" ng-model="city"></select>
-			</div>
-		</div>
-
-		<div class="col-sm-3">
-			<div class="form-group">
-				<label>State</label>
-				<input class="form-control" ng-model="state"></select>
-			</div>
-		</div>
-    <div class="col-sm-3">
-			<div class="form-group">
-				<label>Zipcode</label>
-				<input class="form-control" ng-model="zipcode">
-			</div>
-		</div>
-	</div>
-  <div class="form-group">
-    <label>Distance From The Shoreline (Meters)</label>
-    <input type="number" class="form-control" ng-model="beachDistance">
-  </div>
+      <div class='row'>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Property Address</label>
+            <input class="form-control" vs-google-autocomplete
+                   ng-model="address.fullAddress"
+                   vs-street-number="address.streetNumber"
+                   vs-street="address.streetName"
+                   vs-city="address.city"
+                   vs-state="address.state"
+                   vs-country="address.country"
+                   vs-latitude="address.lat"
+                   vs-longitude="address.long"
+                   vs-post-code="address.zipcode"
+                   name="address"
+                   type="text">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Meters From The Shoreline</label>
+            <!--<input type="number" class="form-control" ng-model="beachDistance">-->
+            <input type="range" class="form-control" id="myRange" value="0" ng-model="beachDistance">
+            <h1>{{beachDistance}}</h1>
+          </div>
+        </div>
+      </div>
 
 
 
 
+
+      	<div class="page-header page-header-small">
+      		<h3>Tell Us A Little About Your Home</h3>
+      	</div>
+
+        <div class="row">
+          <div class='col-sm-6'>
+            <div class="form-group">
+              <label>Describe Your Home </label>
+              <textarea class="form-control" rows="6" ng-model="description" placeholder="Enter a description"></textarea>
+            </div>
+            <div class="form-group">
+              <label>What Are You Selling?</label><br>
+              <input type="radio" name="houseType" value="House" ng-model="homeType" checked>House<br>
+              <input type="radio" name="houseType" value="Apartment" ng-model="homeType">Apartment<br>
+              <input type="radio" name="houseType" value="Condo" ng-model="homeType">Condo<br>
+              <input type="radio" name="houseType" value="Townhome" ng-model="homeType">Townhome<br>
+              <input type="radio" name="houseType" value="Land/Lot" ng-model="homeType">Land/Lot<br>
+            </div>
+          </div>
+          <div class='col-sm-6'>
+              <div class='row'>
+                <div class='col-sm-6'>
+                  <div class="form-group">
+                    <label>Cost</label>
+                    <input type="text" class="form-control" rows="6" ng-model="cost" format-as-currency>
+                  </div>
+                </div>
+                <div class='col-sm-6'>
+                  <div class="form-group">
+                    <label>SQFT</label>
+                    <input type="text" class="form-control"  ng-model="sqft">
+                  </div>
+                </div>
+              </div>
+              <div class='row'>
+                <div class='col-sm-6'>
+                  <div class="form-group">
+                    <label>Beds</label>
+                    <input type="text" class="form-control" ng-model="beds">
+                  </div>
+                </div>
+                <div class='col-sm-6'>
+                  <div class="form-group">
+                    <label>Baths</label>
+                    <input type="text" class="form-control" ng-model="baths" >
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
 </form>
 
 <div class="page-header page-header-small">
-  <h3>Upload Images</h3>
+  <h3>Show Off Your Property</h3>
 </div>
-
-    <!--<form action="" class="dropzone" id='my-awesome-dropzone'>
-      <div class="fallback">
-        <input name="file" type="file" multiple />
-      </div>
-    </form>-->
-
-
-      <form action="" class="dropzone" dropzone="" id="dropzone">
-          <div class="dz-default dz-message">
-            Upload Images Here
-          </div>
-      </form>
+<form action="" class="dropzone" dropzone="" id="dropzone">
+    <div class="dz-default dz-message">
+      Click Or Drag To Upload Images
+    </div>
+</form>
 
 
 
