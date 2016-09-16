@@ -1,5 +1,5 @@
-<body class="">
-	<div class="page-wrapper">
+
+	<div class="page-wrapper" ng-cloak>
 		<div class="dashboard-wrapper">
 			<div class="dashboard-sidebar">
 				<div class="dashboard-title">
@@ -15,9 +15,14 @@
 				</div><!-- /.dashboard-title -->
 
 				<div class="dashboard-user hidden-md-down">
-					<div class="dashboard-user-image" style="background-image: url('assets/img/profile.jpg');">
-					</div><!-- /.dashboar-user-image -->
-					<strong>{{userData['firstName']}} {{userData['lastName']}}</strong>
+          <div class='editWrap'>
+            <!--<div class='editOverlay'>
+            </div>-->
+  					<div class="dashboard-user-image" style="background-image: url('assets/img/UserProfile.png');">
+  					</div><!-- /.dashboar-user-image -->
+  					<strong>{{userData['firstName']}} {{userData['lastName']}}</strong>
+            <a href="#/"><div class='edit'>Edit My Profile</div></a>
+          </div>
 				</div><!-- /.dashboard-user -->
 
 				<div class="dashboard-nav-primary collapse navbar-toggleable-md">
@@ -27,7 +32,11 @@
 								<i class="fa fa-building"></i> Properties
 							</a>
 						</li>
-
+            <li class="nav-item">
+              <a href="#/my-profile" class="nav-link">
+                <i class="fa fa-user"></i> My Profile
+              </a>
+            </li>
 						<li class="nav-item">
 							<a href="dashboard-agents.html" class="nav-link ">
 								<i class="fa fa-suitcase"></i> Agents
@@ -88,13 +97,13 @@
 
     		<span class="listing-box-image-links">
     			<a href="properties.html"><i class="fa fa-heart"></i> <span>Edit Property</span></a>
-    			<a href="properties-detail-standard.html"><i class="fa fa-search"></i> <span>View Property</span></a>
+    			<a href="#/single-property/{{x['idListing']}}"><i class="fa fa-search"></i> <span>View Property</span></a>
     			<a href="properties-compare.html"><i class="fa fa-balance-scale"></i> <span>Compare property</span></a>
     		</span>
     	</div><!-- /.listing-box-image -->
 
     	<div class="listing-box-title">
-    		<h2><a href="properties-detail-standard.html">{{x['title']}}</a></h2>
+    		<h2><a href="properties-detail-standard.html">{{x['streetNumber']}} {{x['streetName']}}</a></h2>
     		<h3>${{x['cost']}}</h3>
     	</div><!-- /.listing-box-title -->
 

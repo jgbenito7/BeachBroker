@@ -1,4 +1,4 @@
-var app = angular.module("beachBroker", ["ngRoute","ngCookies","ngAnimate",'bcherny/formatAsCurrency', 'vsGoogleAutocomplete']);
+var app = angular.module("beachBroker", ["ngRoute","ngCookies","ngAnimate",'bcherny/formatAsCurrency', 'vsGoogleAutocomplete','angularUtils.directives.dirPagination']);
 
 app.config(function($routeProvider) {
     $routeProvider
@@ -8,7 +8,7 @@ app.config(function($routeProvider) {
     }).when("/login", {
         templateUrl : "templates/dashboard-login.html",
         controller: "loginCtrl"
-    }).when("/properties", {
+    }).when("/properties/:parameters?", {
         templateUrl : "templates/properties-map.html",
         controller : "propertySearchCtrl"
     }).when("/single-property/:propId", {
@@ -22,13 +22,20 @@ app.config(function($routeProvider) {
         templateUrl : "templates/dashboard-properties.html",
         controller : "dashboardCtrl",
         isLogin: true
+    }).when("/my-profile", {
+        templateUrl : "templates/dashboard-myprofile.html",
+        controller : "myprofileCtrl",
+        isLogin: true
+    }).when("/edit-profile", {
+        templateUrl : "templates/dashboard-editprofile.html",
+        controller : "editprofileCtrl",
+        isLogin: true
     }).otherwise({
       redirectTo: '/'
     });
 });
 
 app.run(function($rootScope,$cookies,$route,$location) {
-
 
     $rootScope.baseUrl = "http://localhost:8080";
 
@@ -48,6 +55,8 @@ app.run(function($rootScope,$cookies,$route,$location) {
             $location.path('login');
         }
     });
+
+
 
     //console.log($rootScope.userToken);
 
@@ -79,12 +88,38 @@ app.run(function($rootScope,$cookies,$route,$location) {
 
 
 })
-.controller('mainCtrl', function($scope, $rootScope) {
+.controller('mainCtrl', function($scope, $rootScope, $location, $route) {
   $.getScript('assets/js/villareal.js', function(){});
-})
-.controller('propertySearchCtrl', function($scope, $rootScope) {
-  $.getScript('assets/js/villareal.js', function(){});
-})
-.controller('singlePropertyCtrl', function($scope, $rootScope) {
-  $.getScript('assets/js/villareal.js', function(){});
+
+
+  console.log("loaded");
+
+  $scope.address= {
+    streetNumber: 'null',
+    streetName: 'null',
+    city: 'null',
+    state: 'null',
+    country: 'null'
+  };
+
+  $scope.search = function(){
+
+    //urlString = urlString.substring(0, urlString.length - 1);
+    var urlString = $scope.address['streetNumber'] + "?" +
+                         $scope.address['streetName'] + "?" +
+                         $scope.address['city'] + "?" +
+                         $scope.address['state'] + "?" +
+                         $scope.address['country'];
+
+        //urlString = urlString.replace(/ /g,"%20");
+                         //console.log('properties/' + urlString);
+    $location.path('properties/' + urlString);
+    $route.reload();
+    //$location.path('properties/' +);
+
+  }
+
+
+
+
 });

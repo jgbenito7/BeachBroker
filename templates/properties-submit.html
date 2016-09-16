@@ -61,7 +61,7 @@
           <div class="form-group">
             <label>Meters From The Shoreline</label>
             <!--<input type="number" class="form-control" ng-model="beachDistance">-->
-            <input type="range" class="form-control" id="myRange" value="0" ng-model="beachDistance">
+            <input type="range" class="" id="myRange" value="0" ng-model="beachDistance">
             <h1>{{beachDistance}}</h1>
           </div>
         </div>
@@ -76,20 +76,6 @@
       	</div>
 
         <div class="row">
-          <div class='col-sm-6'>
-            <div class="form-group">
-              <label>Describe Your Home </label>
-              <textarea class="form-control" rows="6" ng-model="description" placeholder="Enter a description"></textarea>
-            </div>
-            <div class="form-group">
-              <label>What Are You Selling?</label><br>
-              <input type="radio" name="houseType" value="House" ng-model="homeType" checked>House<br>
-              <input type="radio" name="houseType" value="Apartment" ng-model="homeType">Apartment<br>
-              <input type="radio" name="houseType" value="Condo" ng-model="homeType">Condo<br>
-              <input type="radio" name="houseType" value="Townhome" ng-model="homeType">Townhome<br>
-              <input type="radio" name="houseType" value="Land/Lot" ng-model="homeType">Land/Lot<br>
-            </div>
-          </div>
           <div class='col-sm-6'>
               <div class='row'>
                 <div class='col-sm-6'>
@@ -119,8 +105,40 @@
                   </div>
                 </div>
               </div>
+
+
+            </div>
+          <div class='col-sm-6'>
+            <div class="form-group">
+              <label>Describe Your Home </label>
+              <textarea class="form-control" rows="6" ng-model="description" placeholder="Enter a description"></textarea>
+            </div>
+
+          </div>
+
+        </div>
+        <label>What Are You Selling?</label><br>
+
+
+      <div class="form-group">
+        <div class="row">
+            <div class="col-md-5ths col-xs-6">
+               <input type="radio" name="houseType" value="House" ng-model="homeType" checked><span>House</span>
+            </div>
+            <div class="col-md-5ths col-xs-6">
+               <input type="radio" name="houseType" value="Apartment" ng-model="homeType"><span>Apartment</span>
+            </div>
+            <div class="col-md-5ths col-xs-6">
+               <input type="radio" name="houseType" value="Condo" ng-model="homeType"><span>Condo</span>
+            </div>
+            <div class="col-md-5ths col-xs-6">
+               <input type="radio" name="houseType" value="Townhome" ng-model="homeType"><span>Townhome</span>
+            </div>
+            <div class="col-md-5ths col-xs-6">
+               <input type="radio" name="houseType" value="Land/Lot" ng-model="homeType"><span>Land/Lot</span>
             </div>
         </div>
+      </div>
 </form>
 
 <div class="page-header page-header-small">
@@ -145,12 +163,12 @@
     	</div>
 
     	<div class="checkbox">
-    	    <label><input type="checkbox"> I agree with terms &amp; conditions</label>
+    	    <label><input type="checkbox"> I agree with the <a href="#/">terms &amp; conditions</a></label>
     	</div>
 </form>
 
 <div class="center">
-  <a class="btn btn-primary" ng-click="submitProperty()">Submit Property</a>
+  <a class="btn btn-primary" ng-click="submitProperty()">Review Property</a>
 </div>
 				            </div>
 

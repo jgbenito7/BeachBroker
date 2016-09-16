@@ -1,3 +1,56 @@
+
+
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-5ths {
+    width: 20%;
+    float: left;
+}
+
+@media (min-width: 768px) {
+    .col-sm-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-5ths {
+        width: 20%;
+        float: left;
+    }
+
+}
+
+@media (max-width: 992px) {
+    .profile-container{
+      width:100% !important;
+    }
+    .profile-pic{
+      width:100px !important;
+      height:100px !important;
+    }
+    .profile-element{
+      font-size: 15px !important;
+    }
+
+}
+
+@media (min-width: 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
 a:hover,a:visited,a:active{
   text-decoration: none !important;
   cursor: pointer;
@@ -19,14 +72,29 @@ a:hover,a:visited,a:active{
    color: #484848;
 }
 
+.fixed-wrapper{
+  width:100%;
+  height:100%;
+  position: fixed;
+  display: block;
+}
+
+.height-100{
+  height:100%;
+}
+
 .cover-image {
-  background-image: url("../img/bg/bg-1.jpeg") !important;
+  background-image: url("../img/bg/bg-6.jpeg") !important;
 }
 
 .dashboard-login-right{
   background-image: url("../img/bg/bg-3.jpeg") !important;
   background-size:cover;
 
+}
+
+.padding-0{
+  padding:0px !important;
 }
 
 .logo{
@@ -249,4 +317,270 @@ hr.skinny{
 
 .dz-message{
   font-size:30px;
+}
+
+.editWrap{
+  width:60%;
+  margin:auto;
+
+  position: relative;
+  cursor: pointer;
+
+}
+
+.editOverlay{
+  border-radius:5px;
+  position: absolute;
+  height:100%;
+  width:100%;
+  top:0;
+  left:0;
+  background: rgba(10,10,10,.4);
+}
+
+.edit{
+  text-align: center;
+  font-style: italic;
+  font-size: 12px;
+}
+
+
+#slideselector {
+    position: absolue;
+    top:0;
+    left:0;
+    border: 2px solid black;
+    padding-top: 1px;
+}
+.slidebutton {
+    height: 21px;
+    margin: 2px;
+}
+#slideshow {
+    margin: 50px auto;
+    position: relative;
+    width: 240px;
+    height: 240px;
+    padding: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+#slideshow > div {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    overflow:hidden;
+}
+
+.imgLike {
+    width:100%;
+    height:100%;
+}
+
+.dashboard-user-image{
+  border:none;
+}
+/* Radio */
+
+input[type="radio"] + span{
+  z-index:99;
+  color:#666666;
+  position:relative;
+  left:40px;
+  top:4px;
+}
+
+.main-form{
+  min-height: 0px !important;
+  padding:0px !important;
+
+}
+
+.main-form > input{
+  box-shadow:none !important;
+    line-height: 1.45 !important;
+
+}
+
+/*input[type="radio"]:checked:after <+ span{
+  color:white;
+}*/
+input[type="radio"]{
+    -webkit-appearance: none;
+}
+
+input[type="radio"]:focus{
+
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+input[type="radio"], input[type="radio"]:after {
+  width:28px;
+  height:28px;
+  position: absolute;;
+  display: inline-block;
+  cursor: pointer;
+  background-color: transparent;
+  border: 3px solid white;
+  border-radius: 50%;
+}
+
+/*input[type="radio"] {
+    background-color: white;
+    border-radius: 3px;
+    border:1px solid #ddd;
+    cursor: pointer;
+    display: inline-block;
+    height: 40px;
+    position: absolute;;
+    width: 99%;
+    -webkit-appearance: none;
+    z-index:70;
+}*/
+input[type="radio"]:after {
+    content: '';
+    display: block;
+    left:-3px;
+    top:-3px;
+}
+input[type="radio"]:checked:after {
+    border-color:  #EC8C6F;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  margin: 18px 0;
+  width: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: #ffffff;
+  border-radius: 1.3px;
+  border: 0.2px solid #ddd;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #ddd, 0px 0px 1px #ddd;
+  border: 1px solid #ddd;
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
+  background: #EC8C6F;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -14px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ffffff;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: #ffffff;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 50%;
+  background: #EC8C6F;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #ffffff;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+}
+input[type=range]::-ms-fill-upper {
+  background: #ffffff;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 50%;
+  background: #EC8C6F;
+  cursor: pointer;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #ffffff;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #ffffff;
+}
+
+.listings-scroll{
+  overflow-y: scroll;
+  height:600px;
+}
+
+.pagination-sticky{
+  position: absolute;;
+  bottom:60px;
+  width:100%;
+}
+
+.bottom-wrap{
+  width:100%;
+  position: relative;
+}
+
+.profile-pic{
+  width:200px;
+  height:200px;
+  border-radius:50%;
+  background-size: cover !important;
+  background-position: center !important;
+  margin:auto;
+}
+
+.profile-container{
+  width:800px;
+  height:auto;
+}
+
+.profile-element{
+  font-size:25px;
+  padding:15px;
+}
+
+.profile-dz{
+  width:195px;
+  min-height:100px;
+}
+
+.profile-dz > .dz-message{
+  font-size: 20px;
 }

@@ -8,6 +8,8 @@
 'use strict';
 angular.module('vsGoogleAutocomplete', []);
 
+
+
 angular.module('vsGoogleAutocomplete').factory('vsGooglePlaceUtility', function() {
 	function isGooglePlace(place) {
 		if (!place)
@@ -152,6 +154,9 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 			vsDistrict: '=?'
 		},
 		controller: ['$scope', '$attrs', function($scope, $attrs) {
+
+
+
 			this.isolatedScope = $scope;
 
 			/**
@@ -174,6 +179,8 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 		}],
 		link: function(scope, element, attrs, ctrls) {
 			// controllers
+			
+
 			var autocompleteCtrl = ctrls[0],
 				modelCtrl = ctrls[1];
 

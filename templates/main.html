@@ -1,3 +1,5 @@
+
+
 <div class="cover-pull-top header-transparent">
 <div class="page-wrapper">
 
@@ -15,21 +17,30 @@
 	<div class="cover-title">
 		<div class="container">
 			<div class="cover-title-inner">
-				<h1>Premier Properties On The Beach.</h1>
+				<h1>Find Your Next Beach Home</h1>
 
-				<p>Beach Broker provides the easiest method of finding beachfront property. Start your search below! {{test}}</p>
+				<p>Search from over 2000 properties on the beach, worldwide.</p>
 			</div><!-- /.cover-title-->
 
-			<form method="get" action="properties.html">
-				<div class="form-group col-sm-3">
-					<select class="form-control">
-						<option value="">Location</option>
+			<form>
+				<div class="form-group col-sm-6">
+					<div class="form-control main-form">
+            <input class="form-control" vs-google-autocomplete
+                   ng-model="address.fullAddress"
+                   vs-street-number="address.streetNumber"
+                   vs-street="address.streetName"
+                   vs-city="address.city"
+                   vs-state="address.state"
+                   vs-country="address.country"
+                   name="address"
+                   type="text">
+						<!--<option value="">Location</option>
 						<option value="">New York</option>
-						<option value="">Washington</option>
-					</select>
+						<option value="">Washington</option>-->
+					</div>
 				</div><!-- /.form-group -->
 
-				<div class="form-group col-sm-3">
+				<!--<div class="form-group col-sm-3">
 					<select class="form-control">
 						<option value="">Property Type</option>
 						<option value="">Apartment</option>
@@ -41,7 +52,7 @@
 				</div><!-- /.form-group -->
 
 				<div class="form-group col-sm-2">
-					<button type="submit" class="btn btn-primary btn-block">Search</button>
+					<button class="btn btn-primary btn-block" ng-click="search()">Search</button>
 				</div>
 			</form>
 		</div><!-- /.container -->

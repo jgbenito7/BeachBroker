@@ -1,0 +1,112 @@
+
+	<div class="page-wrapper" ng-cloak>
+		<div class="dashboard-wrapper">
+			<div class="dashboard-sidebar">
+				<div class="dashboard-title">
+					<a href="#/">
+						<div class="logo"></div> BeachBroker.com
+					</a>
+
+					<button class="navbar-toggler pull-xs-right hidden-lg-up" type="button" data-toggle="collapse" data-target=".dashboard-nav-primary">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+				</div><!-- /.dashboard-title -->
+
+				<div class="dashboard-user hidden-md-down">
+          <div class='editWrap'>
+            <!--<div class='editOverlay'>
+            </div>-->
+  					<div class="dashboard-user-image" style="background-image: url('{{serverUrl}}/images/profile/{{userData['imagePath']}}');">
+  					</div><!-- /.dashboar-user-image -->
+  					<strong>{{userData['firstName']}} {{userData['lastName']}}</strong>
+            <a href="#/edit-profile"><div class='edit'>Edit My Profile</div></a>
+          </div>
+				</div><!-- /.dashboard-user -->
+
+				<div class="dashboard-nav-primary collapse navbar-toggleable-md">
+					<ul class="nav nav-stacked">
+						<li class="nav-item">
+							<a href="#/dashboard" class="nav-link">
+								<i class="fa fa-building"></i> Properties
+							</a>
+						</li>
+            <li class="nav-item">
+              <a href="#/my-profile" class="nav-link active">
+                <i class="fa fa-user"></i> My Profile
+              </a>
+            </li>
+						<li class="nav-item">
+							<a href="dashboard-agents.html" class="nav-link ">
+								<i class="fa fa-suitcase"></i> Agents
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="dashboard-agencies.html" class="nav-link ">
+								<i class="fa fa-globe"></i> Agencies
+							</a>
+
+						<li class="nav-item">
+							<a href="dashboard-users.html" class="nav-link ">
+								<i class="fa fa-users"></i> Users
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a ng-click="logout()" class="nav-link">
+								<i class="fa fa-sign-out"></i> Logout
+							</a>
+						</li>
+					</ul>
+				</div><!-- /.dashboard-nav-primary -->
+
+				<div class="dashboard-text hidden-md-down">
+					<h2>Do you need help?</h2>
+
+					<p>
+						If you have any questions, feel free to use our profile form. We will contact you as soon as possible.
+					</p>
+				</div><!-- /.dashboard-text -->
+
+			</div><!-- /.dashboard-sidebar -->
+
+			<div class="dashboard-content">
+				<div class="container-fluid">
+					<div class="dashboard-header">
+						<h1>My Profile</h1>
+
+						<a href="#/edit-profile" class="btn btn-primary">Edit Profile</a>
+					</div><!-- /.dashboard-header -->
+
+					<div class='profile-container'>
+						<div class="row">
+							<div class='col-sm-4'>
+								<div class='profile-pic' style="background:url('{{serverUrl}}/images/profile/{{userData['imagePath']}}')">
+								</div>
+							</div>
+							<div class='col-sm-8'>
+								<div class='profile-element'>
+									Name: {{userData['firstName']}} {{userData['lastName']}}
+								</div>
+								<div class='profile-element'>
+									Personal Email: {{userData['email']}}
+								</div>
+								<div class='profile-element'>
+									Contact Email: {{userData['contactEmail']}}
+								</div>
+								<div class='profile-element'>
+									Contact Phone: {{userData['phone']}}
+								</div>
+							</div>
+
+
+						</div><!-- /.row -->
+					</div>
+
+
+				</div><!-- /.container -->
+			</div><!-- /.dashboard-content -->
+		</div><!-- /.dashboard -->
+	</div><!-- /.page-wrapper -->
