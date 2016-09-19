@@ -1,27 +1,13 @@
-app.controller('myprofileCtrl', function($scope, $rootScope, $location, $http, $route) {
-  //
-
+app.controller('myprofileCtrl', function($scope, $rootScope, $location, $http, $route, usersFactory) {
   $scope.data = [];
   $scope.userData = [];
-    //console.log("Authenticating user");
-          // use $.param jQuery function to serialize data from JSON
-           var data = $.param({
-               userToken: $rootScope.userToken //Might need to change this later.
-           });
 
-           var config = {
-               headers : {
-                   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-               }
-           }
+   var data = $.param({
+       userToken: $rootScope.userToken //Might need to change this later.
+   });
 
-
-           $http.post($rootScope.baseUrl + "/users/name", data, config)
-           .success(function (data, status, headers, config) {
-             $scope.userData = data[0];
-             console.log(data)
-           })
-           .error(function (data, status, header, config) {
-               console.log("Error");
-           });
+   usersFactory.getUserName(data,$rootScope.config).then(function(data){
+     $scope.userData = data['data'][0];
+     console.log(data);
+   });
 });

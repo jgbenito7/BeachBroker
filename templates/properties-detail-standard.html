@@ -58,7 +58,7 @@
 
         <div class="listing-detail col-md-8 col-lg-9" ng-cloak>
             <div class="gallery" >
-              <div ng-repeat="x in listingPictures" class="gallery-item" style="background-image: url({{serverUrl}}{{imageUrl}}{{x['filePath']}});">
+              <div ng-repeat="x in listingPictures" class="gallery-item" style="background-image: url({{serverUrl}}{{imageUrl}}{{x['idListing']}}/{{x['filePath']}});">
               </div><!-- /.gallery-item -->
 
 

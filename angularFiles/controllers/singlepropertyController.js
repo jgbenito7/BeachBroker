@@ -1,4 +1,4 @@
-app.controller('singlePropertyCtrl', function($scope, $rootScope, $routeParams, $http) {
+app.controller('singlePropertyCtrl', function($scope, $rootScope, $routeParams, $http, usersFactory, listingsFactory) {
 
   var propId = $routeParams.propId;
 
@@ -6,11 +6,9 @@ app.controller('singlePropertyCtrl', function($scope, $rootScope, $routeParams, 
       userToken: $rootScope.userToken //Might need to change this later.
   });
 
-  var config = {
-      headers : {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-      }
-  }
+  listingsFactory.getListing(data,$rootScope.config).then(function(data){
+    $scope.listings = data['data'];
+  });
 
 
   $http.get($rootScope.baseUrl + "/listings/" + propId,config)
@@ -44,8 +42,6 @@ app.filter('stateName', function() {
   // In the return function, we must pass in a single parameter which will be the data we will work on.
   // We have the ability to support multiple other parameters that can be passed into the filter optionally
   return function(input, optional1, optional2) {
-
-
     var states = [
         ['Arizona', 'AZ'],
         ['Alabama', 'AL'],
@@ -107,10 +103,6 @@ app.filter('stateName', function() {
             return(states[i][0]);
         }
     }
-
-
-    //return output;
-
   }
 
 });

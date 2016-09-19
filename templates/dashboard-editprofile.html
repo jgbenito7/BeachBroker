@@ -91,19 +91,19 @@
 							<div class='col-xs-6'>
 								<div class="form-group">
 									<label>First Name</label>
-									<input type="text" class="form-control" ng-model="firstName" >
+									<input type="text" class="form-control" ng-model="firstName" placeholder="{{userData['firstName']}}">
 								</div>
 								<div class="form-group">
 									<label>Last Name</label>
-									<input type="text" class="form-control" ng-model="lastName" >
+									<input type="text" class="form-control" ng-model="lastName" placeholder="{{userData['lastName']}}" >
 								</div>
 								<div class="form-group">
 									<label>Contact Email</label>
-									<input type="text" class="form-control" ng-model="contactEmail" >
+									<input type="text" class="form-control" ng-model="contactEmail" placeholder="{{userData['contactEmail']}}">
 								</div>
 								<div class="form-group">
 									<label>Phone Number</label>
-									<input type="text" class="form-control" ng-model="phone" >
+									<input type="text" class="form-control" ng-model="phone" placeholder="{{userData['phone']}}">
 								</div>
 								<div class="">
 								  <a class="btn btn-primary" ng-click="submitProfile()">Update Profile</a>

@@ -64,7 +64,7 @@
 				<div class='listings-scroll'>
 				<div dir-paginate='x in listings | itemsPerPage: 2'  class="listing-row">
 					<div class="listing-row-inner">
-						<div class="listing-row-image" style="background-image: url({{serverUrl}}{{imageUrl}}{{x['filePath']}});">
+						<div class="listing-row-image" style="background-image: url({{serverUrl}}{{imageUrl}}{{x['idListing']}}/{{x['filePath']}});">
 							<span class="listing-row-image-links">
 								<a href="properties.html"><i class="fa fa-heart"></i> <span>Add to favorites</span></a>
 								<a href="#single-property/{{x['idListing']}}"><i class="fa fa-search"></i> <span>View detail</span></a>

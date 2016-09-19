@@ -39,12 +39,18 @@ app.run(function($rootScope,$cookies,$route,$location) {
 
     $rootScope.baseUrl = "http://localhost:8080";
 
-    $rootScope.serverUrl = "http://localhost:8888/Beach%20Broker%20Server";
+    $rootScope.serverUrl = "http://localhost:8888/Beach%20Broker/Beach%20Broker%20Server";
 
     $rootScope.imageUrl = "/images/listings/";
 
     //I may need to do some kind of session thing here if user disables cookies
     $rootScope.userToken = $cookies.get("userToken");
+
+    $rootScope.config = {
+        headers : {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+        }
+    }
 
     $rootScope.$on('$routeChangeStart', function (event, next) {
         if($rootScope.userToken){

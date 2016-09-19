@@ -1,4 +1,4 @@
-app.controller('propertySearchCtrl', function($scope, $rootScope, $routeParams, $http) {
+app.controller('propertySearchCtrl', function($scope, $rootScope, $routeParams, $http, listingsFactory) {
   $.getScript('assets/js/villareal.js', function(){});
 
   $scope.interval = 2;
@@ -15,11 +15,6 @@ app.controller('propertySearchCtrl', function($scope, $rootScope, $routeParams, 
     country: ''
   };
 
-  console.log($routeParams);
-
-
-
-
   $scope.searchProperties = function(){
     var data = $.param({
         streetNumber: $scope.address.streetNumber,
@@ -29,24 +24,11 @@ app.controller('propertySearchCtrl', function($scope, $rootScope, $routeParams, 
         country: $scope.address.country,
 
     });
-    //console.log($scope.address.country);
-    $http.post($rootScope.baseUrl + "/listings/all", data, config)
-    .success(function (data, status, headers, config) {
-      $scope.listings = data;
 
-        console.log(data);
-    })
-    .error(function (data, status, header, config) {
-        console.log("Error");
+    listingsFactory.searchListings(data,$rootScope.config).then(function(data){
+      $scope.listings = data['data'];
     });
-    //console.log($scope.address);
   };
-
-  var config = {
-      headers : {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-      }
-  }
 
 
 

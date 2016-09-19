@@ -10,6 +10,7 @@ var request = require('request');
 var randomstring = require("randomstring");
 var fs = require("fs");
 var gm = require('gm').subClass({imageMagick: true});
+var mkdirp = require('mkdirp');
 
 var connection  = mysql.createPool({
     connectionLimit : 10,
@@ -47,6 +48,7 @@ function createUser (req, res, next) {
 
   var token = randomstring.generate(255);
   var query = "SELECT * FROM users WHERE email = " + mysql.escape(req.body.email) + ";";
+  console.log(query);
   connection.query(query, function(err, results){
       if(results.length > 0) {
         res.send(401); //401 is user already exists
@@ -54,9 +56,10 @@ function createUser (req, res, next) {
         return;
       }
       var query2 = "INSERT INTO Users (email, password, firstName, lastName, token) VALUES("
-      + mysql.escape(req.body.email)+ ", SHA2(" + mysql.escape(req.body.password) + ",256), "
+      + mysql.escape(req.body.email)+ ", PASSWORD(" + mysql.escape(req.body.password) + "), "
       + mysql.escape(req.body.firstName) + ","
       + mysql.escape(req.body.lastName) + ", '" + token + "');";
+      console.log(query2);
       connection.query(query2, function(err, results){
       if(err)
         throw err;
@@ -75,7 +78,7 @@ function authorizeUser (req, res, next) {
         return;
     }
 
-    var query = "SELECT * FROM Users WHERE password = SHA2(" + mysql.escape(req.body.password) + ", 256) AND email = " + mysql.escape(req.body.email) + ";";
+    var query = "SELECT * FROM Users WHERE password = PASSWORD(" + mysql.escape(req.body.password) + ") AND email = " + mysql.escape(req.body.email) + ";";
     console.log(query);
     connection.query(query,  function(err, results){
 	if (err)
@@ -97,25 +100,6 @@ function uploadListingPictures(req, res, next){
   var token = mysql.escape(req.body.userToken);
   checkToken(token,function(response){
     if(response['value']){
-
-      //console.log(res);
-      //Build a list of filenames
-      var filenames = [];
-      var counter = 0;
-      //Upload the files to the server
-      for(i in req.files) {
-        var index = 'file[' + i.toString() + ']';
-        var filename = req.files[i]['name'];
-        var split = filename.split('.');
-        var ext = split[split.length - 1];
-        var newFilename = (new Date).getTime() + '.' + ext;
-        filenames.push(newFilename);
-        fs.createReadStream(req.files[i]['path']).pipe(fs.createWriteStream("images/listings/" + newFilename));
-        var middle = gm(req.files[i]['path']).thumb(200, 200, "images/listings/thumb/" + newFilename, 75, function(err){if(err) console.log(err)});
-      }
-
-
-
       var query2 = "INSERT INTO listings (userId, fullAddress, streetNumber, streetName, city, state, country, zipcode, latitude, longitude, cost, sqft, beds, baths, beachDistance, homeType, description, published) VALUES("
       +  mysql.escape(response['email']) + ","
       + mysql.escape(req.body.fullAddress) + ","
@@ -141,6 +125,34 @@ function uploadListingPictures(req, res, next){
         if(err)
           throw err;
         else{
+
+          var insertId = results['insertId'].toString();
+          console.log(insertId);
+          //console.log(res);
+          //Build a list of filenames
+          var filenames = [];
+          var counter = 0;
+          //Upload the files to the server
+          for(i in req.files) {
+            var index = 'file[' + i.toString() + ']';
+            var filename = req.files[i]['name'];
+            var split = filename.split('.');
+            var ext = split[split.length - 1];
+            var newFilename = (new Date).getTime() + '.' + ext;
+            filenames.push(newFilename);
+            var path = "images/listings/" + insertId;
+            console.log(path);
+            var uploadPath = path + '/' + newFilename;
+            mkdirp(path, function (err) {
+                if (err) console.error(err)
+                else console.log('pow!')
+            });
+            console.log(uploadPath);
+            fs.createReadStream(req.files[i]['path']).pipe(fs.createWriteStream(uploadPath));
+            //var middle = gm(req.files[i]['path']).thumb(200, 200, "images/listings/thumb/" + insertId + "/" + newFilename, 75, function(err){if(err) console.log(err)});
+          }
+
+
           //console.log(results);
         //  var query3 = "";
         var queryString = "INSERT INTO listingPictures (idListing, filePath) VALUES"
@@ -191,6 +203,7 @@ function uploadListingPictures(req, res, next){
 //Check if a user's token is valid
 function checkToken(token,callback){
   var query = "SELECT * FROM users WHERE token = " + token + ";";
+  console.log(query);
   connection.query(query, function(err, results){
     if(err)
       throw err;
@@ -201,7 +214,7 @@ function checkToken(token,callback){
       }
       return callback(obj);
     }else{
-      //console.log("token was wrong");
+      console.log("token was wrong");
       var obj = {
         value: false,
         email: null
@@ -213,6 +226,7 @@ function checkToken(token,callback){
 
 
 function getUserListings (req, res, next) {
+  console.log(req.body);
   var token = mysql.escape(req.body.userToken);
   checkToken(token,function(response){
     if(response['value']){
@@ -365,6 +379,7 @@ function getListingsByAddress (req, res, next) {
 
 function updateUser (req, res, next) {
   var token = mysql.escape(req.body.userToken);
+  console.log(req.body);
   checkToken(token,function(response){
     if(response['value']){
 
@@ -381,10 +396,8 @@ function updateUser (req, res, next) {
         var newFilename = (new Date).getTime() + '.' + ext;
         filenames.push(newFilename);
         fs.createReadStream(req.files[i]['path']).pipe(fs.createWriteStream("images/profile/" + newFilename));
-        var middle = gm(req.files[i]['path']).thumb(200, 200, "images/profile/thumb/" + newFilename, 75, function(err){if(err) console.log(err)});
+        //var middle = gm(req.files[i]['path']).thumb(200, 200, "images/profile/thumb/" + newFilename, 75, function(err){if(err) console.log(err)});
       }
-
-
 
       var query = "Update users SET firstName=" + mysql.escape(req.body.firstName) + ", lastName=" + mysql.escape(req.body.lastName) +
       ", contactEmail=" + mysql.escape(req.body.contactEmail) +

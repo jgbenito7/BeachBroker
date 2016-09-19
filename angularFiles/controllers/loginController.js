@@ -1,4 +1,4 @@
-app.controller('loginCtrl', function($scope, $rootScope, $http, $cookies) {
+app.controller('loginCtrl', function($scope, $rootScope, $http, $cookies, usersFactory) {
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '692544747562130',
@@ -22,82 +22,52 @@ app.controller('loginCtrl', function($scope, $rootScope, $http, $cookies) {
    });
 
    $scope.userAuthenticate= function () {
+      console.log("Authenticating user");
+      // use $.param jQuery function to serialize data from JSON
+      var data = $.param({
+          email: $scope.userEmail,
+          password: $scope.userPassword
+      });
 
-     console.log("Authenticating user");
-           // use $.param jQuery function to serialize data from JSON
-            var data = $.param({
-                email: $scope.userEmail,
-                password: $scope.userPassword
-            });
-
-            var config = {
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-                }
-            }
-
-            $http.post($rootScope.baseUrl + "/users/authorize", data, config)
-            .success(function (data, status, headers, config) {
-                console.log("Login Success");
-                //Set rootScope and Cookie to token
-                $cookies.put("userToken", data['token']);
-                $cookies.put("userEmail", $scope.userEmail);
-                $rootScope.userToken = $cookies.get("userToken");
-                window.location.href = "#/dashboard";
-            })
-            .error(function (data, status, header, config) {
-                console.log("Error");
-                $scope.ResponseDetails = "Data: " + data +
-                    "<hr />status: " + status +
-                    "<hr />headers: " + header +
-                    "<hr />config: " + config;
-                console.log($scope.ResponseDetails);
-            });
-  };
+      usersFactory.authorizeUser(data,$rootScope.config).then(function(data){
+        data = data['data'];
+        if(data['loggedIn']){
+          $cookies.put("userToken", data['token']);
+          $cookies.put("userEmail", $scope.userEmail);
+          $rootScope.userToken = $cookies.get("userToken");
+          window.location.href = "#/dashboard";
+        }else{
+          console.log("Login Failed...");
+          console.log(data);
+        }
+      });
+    };
 
   $scope.createUser = function () {
-          // use $.param jQuery function to serialize data from JSON
+      if($scope.userCreateEmail.length > 0 &&
+         $scope.userFirstName.length > 0 &&
+         $scope.userLastName.length > 0 &&
+         $scope.userCreatePassword.length > 0 &&
+         $scope.userConfirmPassword.length > 0 &&
+         ($scope.userCreatePassword == $scope.userConfirmPassword)
+       ){
+         var data = $.param({
+             email: $scope.userCreateEmail,
+             password: $scope.userCreatePassword,
+             firstName: $scope.userFirstName,
+             lastName: $scope.userLastName
+         });
 
-          if($scope.userCreateEmail.length > 0 &&
-             $scope.userFirstName.length > 0 &&
-             $scope.userLastName.length > 0 &&
-             $scope.userCreatePassword.length > 0 &&
-             $scope.userConfirmPassword.length > 0 &&
-             ($scope.userCreatePassword == $scope.userConfirmPassword)
-           ){
-             var data = $.param({
-                 email: $scope.userCreateEmail,
-                 password: $scope.userCreatePassword,
-                 firstName: $scope.userFirstName,
-                 lastName: $scope.userLastName
-             });
-
-             var config = {
-                 headers : {
-                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-                 }
-             }
-
-             $http.post($rootScope.baseUrl + "/users", data, config)
-             .success(function (data, status, headers, config) {
-               //Set rootScope and Cookie to token
-               $cookies.put("userToken", data['token']);
-               $cookies.put("userEmail", $scope.userCreateEmail);
-               $rootScope.userToken = $cookies.get("userToken");
-               window.location.href = "#/dashboard";
-             })
-             .error(function (data, status, header, config) {
-                 console.log("Error");
-                 $scope.ResponseDetails = "Data: " + data +
-                     "<hr />status: " + status +
-                     "<hr />headers: " + header +
-                     "<hr />config: " + config;
-                 console.log($scope.ResponseDetails);
-             });
-           }else{
-             console.log("invalid params");
-           }
-
+         usersFactory.createUser(data,$rootScope.config).then(function(data){
+           data = data['data'];
+           //Set rootScope and Cookie to token
+           $cookies.put("userToken", data['token']);
+           $cookies.put("userEmail", $scope.userCreateEmail);
+           $rootScope.userToken = $cookies.get("userToken");
+           window.location.href = "#/dashboard";
+         });
+       }else{
+         console.log("invalid params");
+       }
   };
-
 });
