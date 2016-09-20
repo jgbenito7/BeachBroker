@@ -9,11 +9,11 @@ app.controller('dashboardCtrl', function($scope, $rootScope, $location, $http, $
 
    listingsFactory.getUserListings(data,$rootScope.config).then(function(data){
      $scope.data = data['data'];
-     console.log(data);
+     //console.log(data);
    });
 
    usersFactory.getUserName(data,$rootScope.config).then(function(data){
      $scope.userData = data['data'][0];
-     console.log(data);
+     //console.log(data);
    });
 });

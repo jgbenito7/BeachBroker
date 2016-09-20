@@ -27,18 +27,24 @@
 
 
 					<div class="form-group">
-						<input type="text" class="form-control register-field" placeholder="Email" ng-model="userCreateEmail">
+						<input type="text" class="form-control register-field modal-field" placeholder="Email" ng-model="userCreateEmail">
 					</div><!-- /.form-group -->
 
 					<div class="form-group">
-						<input type="password" class="form-control register-field" placeholder="Password" ng-model="userCreatePassword">
+						<input type="password" class="form-control register-field modal-field" placeholder="Password" ng-model="userCreatePassword">
 					</div><!-- /.form-group -->
           <div class="form-group">
-						<input type="password" class="form-control register-field" placeholder="Confirm Password" ng-model="userConfirmPassword">
+						<input type="password" class="form-control register-field modal-field" placeholder="Confirm Password" ng-model="userConfirmPassword">
 					</div><!-- /.form-group -->
           <div class="form-group-btn">
-						<button type="submit" class="btn btn-primary btn-stretch" ng-click="createUser()">Register</button>
+						<button type="submit" class="btn btn-primary btn-stretch modal-field" ng-click="createUser()">Register</button>
 					</div><!-- /.form-group-btn -->
+          <div class='login-alert' ng-show="invalidCreateParams">
+            Please make sure your passwords are correct.
+          </div>
+          <div class='login-alert' ng-show="userAlreadyExists">
+            There is already an account associated with that email address.
+          </div>
 
           <div class="signup-or">
             <div class='or'>or</div>
@@ -71,18 +77,8 @@
 </div>
 <div class="page-wrapper scrolly">
 
-
-
-
-
-
 	<div class="dashboard-login-wrapper">
 		<div class="dashboard-login-inner">
-
-
-
-
-
 			<div class="dashboard-login-left">
 				<h2>Please Sign In</h2>
 
@@ -99,18 +95,19 @@
           <div class="form-group-btn">
 						<button type="submit" class="btn btn-primary pull-right btn-stretch" ng-click="userAuthenticate()">Sign In</button>
 					</div><!-- /.form-group-btn -->
+          <div class='login-alert' ng-show="invalidLogin">
+            That seems to be an invalid username and password...
+          </div>
 
           <hr class='skinny'>
 
-          <a href="#/login"><div class='btn-block-cstm facebook-button transition-bg'>
+          <a ng-click="facebook()"><div class='btn-block-cstm facebook-button transition-bg'>
             <div class='facebook-icon'></div>Login With Facebook
           </div></a>
 
           <a href="#/login"><div class='btn-block-cstm google-button transition-border'>
             <div class='google-icon'></div>Login With Google
           </div></a>
-
-
 				</form>
 
 
@@ -122,7 +119,7 @@
 
 					<ul>
 						<li><a href="#">Did you forget password?</a></li>
-						<li><a id="register">I don't have an account</a></li>
+						<li><a class="register">I don't have an account</a></li>
 					</ul>
 				</div><!-- /.dashboard-footer -->
 			</div><!-- /.dashboard-login-left -->
@@ -136,8 +133,13 @@
 					<h1>Welcome To BeachBroker.com</h1>
 
 					<h2>
-						Mauris ut rutrum lacus. Donec vulputate, lorem et volutpat consectetur, sapien mauris consectetur sapien, eu sagittis dui quam id justo.
+						Sign up to search from over 2000 properties near the beach or list a property with us. Click the button below to create a free account today.
 					</h2>
+          <div class='button-wrap'>
+            <div class="form-group-btn">
+  						<button class="btn btn-primary btn-transparent white register">Create An Account</button>
+  					</div>
+          </div>
 				</div><!-- /.dashboard-login-right-content -->
 			</div><!-- /.dashboard-login-right -->
 		</div><!-- /.dashboard-login -->

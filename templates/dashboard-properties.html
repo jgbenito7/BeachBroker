@@ -18,10 +18,10 @@
           <div class='editWrap'>
             <!--<div class='editOverlay'>
             </div>-->
-  					<div class="dashboard-user-image" style="background-image: url('assets/img/UserProfile.png');">
+  					<div class="dashboard-user-image" style="background-image: url('{{serverUrl}}/images/profile/{{userData['imagePath']}}');">
   					</div><!-- /.dashboar-user-image -->
   					<strong>{{userData['firstName']}} {{userData['lastName']}}</strong>
-            <a href="#/"><div class='edit'>Edit My Profile</div></a>
+            <a href="#/edit-profile"><div class='edit'>Edit My Profile</div></a>
           </div>
 				</div><!-- /.dashboard-user -->
 

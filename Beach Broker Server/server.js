@@ -141,15 +141,20 @@ function uploadListingPictures(req, res, next){
             var newFilename = (new Date).getTime() + '.' + ext;
             filenames.push(newFilename);
             var path = "images/listings/" + insertId;
-            console.log(path);
+            //console.log(path);
             var uploadPath = path + '/' + newFilename;
             mkdirp(path, function (err) {
                 if (err) console.error(err)
                 else console.log('pow!')
             });
-            console.log(uploadPath);
+            var thumbPath = "images/listings/thumb/" + insertId;
+            mkdirp(thumbPath, function (err) {
+                if (err) console.error(err)
+                else console.log('pow!')
+            });
+            //console.log(uploadPath);
             fs.createReadStream(req.files[i]['path']).pipe(fs.createWriteStream(uploadPath));
-            //var middle = gm(req.files[i]['path']).thumb(200, 200, "images/listings/thumb/" + insertId + "/" + newFilename, 75, function(err){if(err) console.log(err)});
+            var middle = gm(req.files[i]['path']).thumb(200, 200, thumbPath + "/" + newFilename, 75, function(err){if(err) console.log(err)});
           }
 
 
@@ -202,7 +207,7 @@ function uploadListingPictures(req, res, next){
 
 //Check if a user's token is valid
 function checkToken(token,callback){
-  var query = "SELECT * FROM users WHERE token = " + token + ";";
+  var query = "SELECT * FROM users WHERE token = " + token + " or facebookToken=" + token + ";";
   console.log(query);
   connection.query(query, function(err, results){
     if(err)
@@ -311,8 +316,9 @@ function getSingleListing (req, res, next) {
 }
 
 function getListingsByAddress (req, res, next) {
+  console.log("here");
   console.log(req.body);
-  if(req.body.streetNumber != ''){
+  if(req.body.streetNumber != '' && req.body.streetNumber != 'undefined'){
     var query = "SELECT * FROM listings as L, listingPictures as P WHERE streetNumber =" + mysql.escape(req.body.streetNumber) + " and streetName= " + mysql.escape(req.body.streetName) +" and P.idListing = L.id GROUP BY L.id;";
     console.log(query);
     connection.query(query, function(err, results){
@@ -324,7 +330,7 @@ function getListingsByAddress (req, res, next) {
       }
     });
   }
-  else if(req.body.streetName != ''){
+  else if(req.body.streetName != '' && req.body.streetName != 'undefined'){
     var query = "SELECT * FROM listings as L, listingPictures as P WHERE streetName = " + mysql.escape(req.body.streetName) +" and P.idListing = L.id GROUP BY L.id;";
     console.log(query);
     connection.query(query, function(err, results){
@@ -335,7 +341,7 @@ function getListingsByAddress (req, res, next) {
         next();
       }
     });
-  }else if(req.body.city != ''){
+  }else if(req.body.city != '' && req.body.city != 'undefined'){
     var query = "SELECT * FROM listings as L, listingPictures as P WHERE city = " + mysql.escape(req.body.city) +" and P.idListing = L.id GROUP BY L.id;";
     console.log(query);
     connection.query(query, function(err, results){
@@ -346,7 +352,7 @@ function getListingsByAddress (req, res, next) {
         next();
       }
     });
-  }else if(req.body.state != ''){
+  }else if(req.body.state != '' && req.body.state != 'undefined'){
     var query = "SELECT * FROM listings as L, listingPictures as P WHERE state = " + mysql.escape(req.body.state) +" and P.idListing = L.id GROUP BY L.id;";
     console.log(query);
     connection.query(query, function(err, results){
@@ -357,7 +363,7 @@ function getListingsByAddress (req, res, next) {
         next();
       }
     });
-  }else if(req.body.country != ''){
+  }else if(req.body.country != '' && req.body.country != 'undefined'){
     var query = "SELECT * FROM listings as L, listingPictures as P WHERE country = " + mysql.escape(req.body.country) +" and P.idListing = L.id;";
     console.log(query);
     connection.query(query, function(err, results){
@@ -426,12 +432,58 @@ function updateUser (req, res, next) {
     }
 
   });
-
-
-
   res.send(200);
   next();
   return;
+}
+
+function facebook(req,res,next){
+  //Check if the user does not exist.
+  var token = randomstring.generate(255);
+  var query = "SELECT * FROM users WHERE email=" + mysql.escape(req.body.email) + ";";
+  console.log(query);
+  connection.query(query, function(err, results){
+    //console.log("shit's done");
+    console.log(results);
+    if(err)
+      throw err;
+    else{
+      if(results.length == 0){ //user does not exist
+
+        var query2 = "INSERT INTO users (email, firstName, lastName, facebookId, facebookToken, token) VALUES (" +
+        mysql.escape(req.body.email) + ',' +
+        mysql.escape(req.body.firstName) + ',' +
+        mysql.escape(req.body.lastName) + ',' +
+        mysql.escape(req.body.facebookId) + ',' +
+        mysql.escape(req.body.facebookToken) + "," +
+        mysql.escape(token) + ');';
+        console.log(query2);
+        connection.query(query2, function(err, results){
+          res.send(200);
+          next();
+        });
+      }else{ //The user already exists (with email, firstName, lastName, token)
+        var query2 = "UPDATE users SET facebookId=" + mysql.escape(req.body.facebookId) + ', facebookToken=' + mysql.escape(req.body.facebookToken) + " WHERE email=" + mysql.escape(req.body.email) + ';';
+        console.log(query2);
+        connection.query(query2, function(err, results){
+          res.send(200);
+          next();
+        });
+      }
+    }
+
+  });
+}
+
+function updateFacebookToken(req, res, next){
+  console.log("triggered");
+
+  var query = "UPDATE users SET facebookToken=" + mysql.escape(req.body.facebookToken) + " WHERE facebookId=" + mysql.escape(req.body.facebookId) + ';';
+  console.log(query);
+  connection.query(query, function(err, results){
+    res.send(200);
+    next();
+  });
 }
 
 /////////////////////////////////////////////
@@ -447,11 +499,12 @@ server.use(function crossOrigin(req,res,next){
 server.use(restify.bodyParser ({mapParams: false, multiples: true}));
 
 
-
+server.post('/users/facebook', facebook);
 server.post('/users', createUser);
 server.post('/users/authorize', authorizeUser);
 server.post('/users/name', getUser);
 server.post('/users/update',updateUser);
+server.post('/users/updatefb',updateFacebookToken);
 //server.post('/listings', createListing);
 server.post('/listings/pictures', uploadListingPictures);
 server.post('/listings/user', getUserListings);

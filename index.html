@@ -36,6 +36,7 @@
       <script type="text/javascript" src="assets/libraries/chartist/chartist.min.js"></script>
       <script type="text/javascript" src="assets/js/scrollPosStyler.js"></script>
       <script type="text/javascript" src="assets/js/statename.js"></script>
+      <script src="http://connect.facebook.net/en_US/all.js"></script>
 
 
       <!--
@@ -49,9 +50,9 @@
       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
       <script type="text/javascript" src="assets/js/vs-google-autocomplete.js"></script>
       <script type="text/javascript" src="assets/js/paginate.js"></script>
+      <script type="text/javascript" src="assets/js/angular-facebook.min.js"></script>
       <script type="text/javascript" src="angularFiles/controllers/mainController.js"></script>
       <script type="text/javascript" src="angularFiles/controllers/directives.js"></script>
-      <script type="text/javascript" src="angularFiles/controllers/mainController.js"></script>
 
       <!--
           Angular Factories
@@ -73,7 +74,11 @@
       <title>BeachBroker.com</title>
 </head>
 
-<body ng-view>
+<body>
+
+  <div id="fb-root"></div>
+  <div class='root' ng-view>
+  </div>
 
 <!-- Content Loaded In Here -->
 

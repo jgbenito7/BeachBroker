@@ -19,5 +19,13 @@ app.factory('usersFactory', ['$http', function($http) {
         return $http.post(urlBase + '/update', data, config);
     };
 
+    usersFactory.facebook = function (data,config) {
+        return $http.post(urlBase + '/facebook', data, config);
+    };
+
+    usersFactory.updateFB = function (data,config) {
+        return $http.post(urlBase + '/updatefb', data, config);
+    };
+
     return usersFactory;
 }]);

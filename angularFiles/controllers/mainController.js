@@ -1,6 +1,6 @@
-var app = angular.module("beachBroker", ["ngRoute","ngCookies","ngAnimate",'bcherny/formatAsCurrency', 'vsGoogleAutocomplete','angularUtils.directives.dirPagination']);
+var app = angular.module("beachBroker", ["ngRoute","ngCookies","ngAnimate",'bcherny/formatAsCurrency', 'vsGoogleAutocomplete','angularUtils.directives.dirPagination','facebook']);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $logProvider, FacebookProvider) {
     $routeProvider
     .when("/", {
         templateUrl : "templates/main.html",
@@ -33,9 +33,13 @@ app.config(function($routeProvider) {
     }).otherwise({
       redirectTo: '/'
     });
+
+    $logProvider.debugEnabled(true);
+
+    FacebookProvider.init('692544747562130');
 });
 
-app.run(function($rootScope,$cookies,$route,$location) {
+app.run(function($rootScope,$cookies,$route,$location,$window) {
 
     $rootScope.baseUrl = "http://localhost:8080";
 
@@ -88,10 +92,10 @@ app.run(function($rootScope,$cookies,$route,$location) {
     //Log a user out
     $rootScope.logout = function () {
       $cookies.remove("userToken");
+      $cookies.remove("userEmail");
       //$route.reload();
       window.location.reload(true);
     };
-
 
 })
 .controller('mainCtrl', function($scope, $rootScope, $location, $route) {
@@ -101,11 +105,11 @@ app.run(function($rootScope,$cookies,$route,$location) {
   console.log("loaded");
 
   $scope.address= {
-    streetNumber: 'null',
-    streetName: 'null',
-    city: 'null',
-    state: 'null',
-    country: 'null'
+    streetNumber: '',
+    streetName: '',
+    city: '',
+    state: '',
+    country: ''
   };
 
   $scope.search = function(){

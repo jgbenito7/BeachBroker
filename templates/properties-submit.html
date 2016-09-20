@@ -72,8 +72,10 @@
 
 
       	<div class="page-header page-header-small">
-      		<h3>Tell Us A Little About Your Home</h3>
+      		<h3>Tell Us A Little About Your Property</h3>
       	</div>
+
+      </div>
 
         <div class="row">
           <div class='col-sm-6'>
@@ -138,17 +140,20 @@
                <input type="radio" name="houseType" value="Land/Lot" ng-model="homeType"><span>Land/Lot</span>
             </div>
         </div>
-      </div>
+
 </form>
 
 <div class="page-header page-header-small">
   <h3>Show Off Your Property</h3>
 </div>
+
+
 <form action="" class="dropzone" dropzone="" id="dropzone">
     <div class="dz-default dz-message">
       Click Or Drag To Upload Images
     </div>
 </form>
+
 
 
 
@@ -163,9 +168,17 @@
     	</div>
 
     	<div class="checkbox">
-    	    <label><input type="checkbox"> I agree with the <a href="#/">terms &amp; conditions</a></label>
+    	    <label><input type="checkbox" ng-model='terms'> I agree with the <a href="#/">terms &amp; conditions</a></label>
     	</div>
 </form>
+
+<div class='login-alert' ng-show="termsNotAgreed">
+  You must agree to the terms and conditions.
+</div>
+
+<div class='login-alert' ng-show="validForm">
+  Please make sure that you filled out all of the fields
+</div>
 
 <div class="center">
   <a class="btn btn-primary" ng-click="submitProperty()">Review Property</a>

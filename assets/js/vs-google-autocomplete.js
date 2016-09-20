@@ -11,6 +11,7 @@ angular.module('vsGoogleAutocomplete', []);
 
 
 angular.module('vsGoogleAutocomplete').factory('vsGooglePlaceUtility', function() {
+
 	function isGooglePlace(place) {
 		if (!place)
 			return false;
@@ -18,6 +19,7 @@ angular.module('vsGoogleAutocomplete').factory('vsGooglePlaceUtility', function(
 	}
 
 	function isContainTypes(place, types) {
+
 		var placeTypes,
 			placeType,
 			type;
@@ -38,6 +40,8 @@ angular.module('vsGoogleAutocomplete').factory('vsGooglePlaceUtility', function(
 
 	function getAddrComponent(place, componentTemplate) {
 		var result;
+
+
 		if (!isGooglePlace(place))
 			return;
 		for (var i = 0; i < place.address_components.length; i++) {
@@ -47,6 +51,7 @@ angular.module('vsGoogleAutocomplete').factory('vsGooglePlaceUtility', function(
 				return result;
 			}
 		}
+
 		return;
 	}
 
@@ -179,7 +184,9 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 		}],
 		link: function(scope, element, attrs, ctrls) {
 			// controllers
-			
+
+
+
 
 			var autocompleteCtrl = ctrls[0],
 				modelCtrl = ctrls[1];
@@ -196,7 +203,11 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 
 			// updates view value and address components on place_changed google api event
 			google.maps.event.addListener(autocomplete, 'place_changed', function() {
+				
+
 				place = autocomplete.getPlace();
+
+
 				viewValue = place.formatted_address || modelCtrl.$viewValue;
 				scope.$apply(function() {
 					scope.vsPlace = place;
@@ -208,6 +219,7 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 
 			// updates view value on focusout
 			element.on('blur', function(event) {
+
 				viewValue = (place && place.formatted_address) ? viewValue : modelCtrl.$viewValue;
 				$timeout(function() {
 					scope.$apply(function() {

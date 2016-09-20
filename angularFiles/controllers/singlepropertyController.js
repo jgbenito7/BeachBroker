@@ -6,35 +6,19 @@ app.controller('singlePropertyCtrl', function($scope, $rootScope, $routeParams, 
       userToken: $rootScope.userToken //Might need to change this later.
   });
 
-  listingsFactory.getListing(data,$rootScope.config).then(function(data){
-    $scope.listings = data['data'];
-  });
-
-
-  $http.get($rootScope.baseUrl + "/listings/" + propId,config)
-  .success(function (data, status, headers, config) {
+  listingsFactory.getListing(propId).then(function(data){
+    data = data['data'];
     $scope.data = data;
     $scope.listingData = data['listingData'][0];
     $scope.listingPictures = data['listingPictures'];
-
-      console.log(data);
-
-      $.getScript('assets/js/villareal.js', function(){});
-  })
-  .error(function (data, status, header, config) {
-      console.log("Error");
+    console.log(data);
+    $.getScript('assets/js/villareal.js', function(){});
   });
 
-  $http.post($rootScope.baseUrl + "/users/name", data, config)
-  .success(function (data, status, headers, config) {
-    $scope.userData = data[0];
-
-      console.log($scope.userData);
-  })
-  .error(function (data, status, header, config) {
-      console.log("Error");
+  usersFactory.getUserName(data,$rootScope.config).then(function(data){
+    $scope.userData = data['data'][0];
+    console.log(data);
   });
-
 });
 
 app.filter('stateName', function() {
